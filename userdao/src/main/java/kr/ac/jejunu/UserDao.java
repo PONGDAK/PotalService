@@ -7,7 +7,7 @@ public class UserDao {
         //mysql driver load
         Class.forName("com.mysql.jdbc.Driver");
         //Connection 맺고
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/jeju"
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/jeju?useSSL=false"
                 , "root", "tara0501");
         //sql 작성하고
         PreparedStatement preparedStatement =
