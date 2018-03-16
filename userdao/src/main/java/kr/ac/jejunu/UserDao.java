@@ -4,11 +4,8 @@ import java.sql.*;
 
 public class UserDao {
     public User get(int id) throws ClassNotFoundException, SQLException {
-        //mysql driver load
-        Class.forName("com.mysql.jdbc.Driver");
-        //Connection 맺고
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/jeju?useSSL=false"
-                , "root", "tara0501");
+        Connection connection = getConnection();
+
         //sql 작성하고
         PreparedStatement preparedStatement =
                 connection.prepareStatement("select * from userinfo where id = ?");
@@ -21,11 +18,39 @@ public class UserDao {
         user.setId(resultSet.getInt("id"));
         user.setName(resultSet.getString("name"));
         user.setPassword(resultSet.getString("password"));
-        //자원을 해지하고
         resultSet.close();
         preparedStatement.close();
         connection.close();
         //결과를 리턴한다.
         return user;
+    }
+
+
+    public Integer insert(User user) throws SQLException, ClassNotFoundException {
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement =
+                connection.prepareStatement(
+                        "insert into userinfo(name, password) values (?, ?)");
+        preparedStatement.setString(1, user.getName());
+        preparedStatement.setString(2, user.getPassword());
+
+        preparedStatement.executeUpdate();
+
+        preparedStatement = connection.prepareStatement("select last_insert_id()");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+
+        Integer id = resultSet.getInt(1);
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+        return id;
+    }
+
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost/jeju?characterEncoding=utf-8&useSSL=false"
+                , "root", "tara0501");
     }
 }
