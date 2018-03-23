@@ -2,7 +2,7 @@ package kr.ac.jejunu;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDao {
     public User get(int id) throws ClassNotFoundException, SQLException {
         Connection connection = getConnection();
 
@@ -48,9 +48,6 @@ public class UserDao {
         return id;
     }
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/jeju?characterEncoding=utf-8&useSSL=false"
-                , "root", "tara0501");
-    }
+    abstract public Connection getConnection() throws ClassNotFoundException, SQLException;
+
 }
