@@ -2,9 +2,11 @@ package kr.ac.jejunu;
 
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
+    private final ConnectionMaker connectionMaker = new JejuConnectionMaker();
+
     public User get(int id) throws ClassNotFoundException, SQLException {
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
 
         //sql 작성하고
         PreparedStatement preparedStatement =
@@ -27,7 +29,7 @@ public abstract class UserDao {
     }
 
     public Integer insert(User user) throws SQLException, ClassNotFoundException {
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
         PreparedStatement preparedStatement =
                 connection.prepareStatement(
                         "insert into userinfo(name, password) values (?, ?)");
@@ -47,7 +49,4 @@ public abstract class UserDao {
 
         return id;
     }
-
-    abstract public Connection getConnection() throws ClassNotFoundException, SQLException;
-
 }
