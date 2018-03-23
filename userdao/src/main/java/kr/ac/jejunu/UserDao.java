@@ -21,10 +21,10 @@ public class UserDao {
         resultSet.close();
         preparedStatement.close();
         connection.close();
+
         //결과를 리턴한다.
         return user;
     }
-
 
     public Integer insert(User user) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();

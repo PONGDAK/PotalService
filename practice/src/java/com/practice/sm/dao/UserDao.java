@@ -4,7 +4,7 @@ import com.practice.sm.user.User;
 
 import java.sql.*;
 
-public class UserDao {
+public abstract class UserDao {
 
     public void add(User user) throws ClassNotFoundException, SQLException {
         Connection conn = getConnection();
@@ -38,9 +38,5 @@ public class UserDao {
 
     }
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost/practice?characterEncoding=utf-8&useSSL=false", "root", "tara0501");
-    }
+    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
