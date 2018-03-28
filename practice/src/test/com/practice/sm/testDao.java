@@ -1,6 +1,5 @@
 package com.practice.sm;
 
-import com.practice.sm.dao.NConnectionMaker;
 import com.practice.sm.dao.UserDao;
 import com.practice.sm.user.User;
 
@@ -8,9 +7,7 @@ import java.sql.SQLException;
 
 public class testDao {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-        DaoFactory daoFactory = new DaoFactory();
-        UserDao dao = daoFactory.getUserDao();
+        UserDao dao = new UserDao();
         User user = new User();
         user.setName("신규인원");
         user.setPassword("3214");
