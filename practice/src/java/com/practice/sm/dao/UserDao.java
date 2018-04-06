@@ -5,9 +5,14 @@ import com.practice.sm.user.User;
 import java.sql.*;
 
 public abstract class UserDao {
+    private final ConnectionManager connectionManager;
+
+    public UserDao(ConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
+    }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection conn = getConnection();
+        Connection conn = connectionManager.getConnection();
 
         PreparedStatement ps = conn.prepareStatement("insert into users(name, password) values(?,?)");
         ps.setString(1, user.getName());
@@ -20,7 +25,7 @@ public abstract class UserDao {
     }
 
     public User get(int id) throws ClassNotFoundException, SQLException {
-        Connection conn = getConnection();
+        Connection conn = connectionManager.getConnection();
         PreparedStatement ps = conn.prepareStatement("select * from users where id = ?");
         ps.setInt(1,id);
 
@@ -37,6 +42,4 @@ public abstract class UserDao {
         return user;
 
     }
-
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }

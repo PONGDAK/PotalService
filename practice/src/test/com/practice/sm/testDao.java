@@ -1,5 +1,6 @@
 package com.practice.sm;
 
+import com.practice.sm.dao.NConnectionManager;
 import com.practice.sm.dao.UserDao;
 import com.practice.sm.user.User;
 
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 
 public class testDao {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new UserDao();
+        UserDao dao = new UserDao(new NConnectionManager);
         User user = new User();
         user.setName("신규인원");
         user.setPassword("3214");
