@@ -17,8 +17,9 @@ public class UserDao {
         User user = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("select * from userinfo where id = ?");
-            preparedStatement.setInt(1, id);
+            StatementStrategy statementStrategy = new GetUserStatementStrategy(id);
+            preparedStatement = statementStrategy.makeStatement(connection);
+
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {//원하는대로 에러처리해도됨
                 user = new User();
@@ -56,15 +57,12 @@ public class UserDao {
         Integer id;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(
-                    "insert into userinfo(name, password) values (?, ?)");
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getPassword());
+            StatementStrategy statementStrategy = new InsertUserStatementStrategy(user);
+            preparedStatement = statementStrategy.makeStatement(connection);
 
             preparedStatement.executeUpdate();
 
-            preparedStatement = connection.prepareStatement("select last_insert_id()");
-            resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
 
             id = resultSet.getInt(1);
