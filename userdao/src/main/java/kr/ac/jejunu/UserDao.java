@@ -1,147 +1,59 @@
 package kr.ac.jejunu;
 
-import javax.sql.DataSource;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
 import java.sql.*;
 
 public class UserDao {
-    private final DataSource dataSource;
 
-    public UserDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private final JdbcTemplate jdbcTemplate;
+
+    public UserDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public User get(int id) throws ClassNotFoundException, SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        User user = null;
+    public User get(int id) throws SQLException {
+        String sql = "select * from userinfo where id = ?";
+        Object[] params = new Object[]{id};
         try {
-            connection = dataSource.getConnection();
-            StatementStrategy statementStrategy = new GetUserStatementStrategy(id);
-            preparedStatement = statementStrategy.makeStatement(connection);
+            return jdbcTemplate.queryForObject(sql, params, (rs, rowNum) -> {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setPassword(rs.getString("password"));
+                return user;
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {//원하는대로 에러처리해도됨
-                user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setPassword(resultSet.getString("password"));
+    public Integer insert(User user) throws SQLException {
+        String sql = "insert into userinfo(name, password) values (?, ?)";
+        Object[] params = new Object[]{user.getName(), user.getPassword()};
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(con -> {
+            PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            for (int i = 0; i < params.length; i++) {
+                preparedStatement.setObject(i + 1, params[i]);
             }
-        } finally {
-            if (resultSet != null)
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (preparedStatement != null)
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (connection != null)
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-        }
-        return user;
+            return preparedStatement;
+        }, keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
-    public Integer insert(User user) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        Integer id;
-        try {
-            connection = dataSource.getConnection();
-            StatementStrategy statementStrategy = new InsertUserStatementStrategy(user);
-            preparedStatement = statementStrategy.makeStatement(connection);
-
-            preparedStatement.executeUpdate();
-
-            resultSet = preparedStatement.getGeneratedKeys();
-            resultSet.next();
-
-            id = resultSet.getInt(1);
-        } finally {
-            if (resultSet != null)
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (preparedStatement != null)
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (connection != null)
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-        }
-        return id;
-    }
-
-    public void update(User user) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = dataSource.getConnection();
-            StatementStrategy statementStrategy = new UpdateUserStatementStrategy(user);
-            preparedStatement = statementStrategy.makeStatement(connection);
-
-            preparedStatement.executeUpdate();
-
-        } finally {
-            if (preparedStatement != null)
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (connection != null)
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-        }
+    public void update(User user) throws SQLException {
+        String sql = "update userinfo set name = ?, password = ? where id = ?";
+        Object[] params = new Object[]{user.getName(), user.getPassword(), user.getId()};
+        jdbcTemplate.update(sql, params);
     }
 
     public void delete(Integer id) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = dataSource.getConnection();
-            StatementStrategy statementStrategy = new DeleteUserStatementStrategy(id);
-            preparedStatement = statementStrategy.makeStatement(connection);
-
-
-            preparedStatement.executeUpdate();
-
-        } finally {
-            if (preparedStatement != null)
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (connection != null)
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-        }
+        String sql = "delete from userinfo where id = ?";
+        Object[] params = new Object[]{id};
+        jdbcTemplate.update(sql, params);
     }
 }
