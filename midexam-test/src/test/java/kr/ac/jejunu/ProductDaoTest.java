@@ -14,7 +14,7 @@ public class ProductDaoTest {
 
     @Before
     public void setup() {
-        productDao = new JejuProductDao();
+        productDao = new ProductDao();
     }
 
     @Test
