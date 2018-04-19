@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.sql.SQLException;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -36,13 +37,54 @@ public class ProductDaoTest {
     @Test
     public void add() throws SQLException, ClassNotFoundException {
         Product product = new Product();
-        product.setTitle("테스트");
-        product.setPrice(1000);
-        Long id = productDao.insert(product);
+        Long id = getaLong(product);
 
         Product insertedProduct = productDao.get(id);
         assertThat(insertedProduct.getId(), is(id));
         assertThat(insertedProduct.getTitle(), is(product.getTitle()));
         assertThat(insertedProduct.getPrice(), is(product.getPrice()));
+    }
+
+    private Long getaLong(Product product) throws ClassNotFoundException, SQLException {
+        product.setTitle("테스트");
+        product.setPrice(1000);
+        return productDao.insert(product);
+    }
+
+    @Test
+    public void update() throws SQLException, ClassNotFoundException {
+        Product product = new Product();
+        Long id = insertProductTest(product);
+
+        product.setId(id);
+        product.setTitle("바뀐이름");
+        product.setPrice(12000);
+        productDao.update(product);
+
+        Product updateProduct = productDao.get(id);
+        assertThat(updateProduct.getId(), is(product.getId()));
+        assertThat(updateProduct.getTitle(), is(product.getTitle()));
+        assertThat(updateProduct.getPrice(), is(product.getPrice()));
+
+
+
+    }
+
+    private Long insertProductTest(Product product) throws ClassNotFoundException, SQLException {
+        product.setTitle("테스트");
+        product.setPrice(1000);
+        return productDao.insert(product);
+    }
+
+    @Test
+    public void delete() throws SQLException, ClassNotFoundException {
+        Product product = new Product();
+        Long id = insertProductTest(product);
+
+        productDao.delete(id);
+
+        Product deletedProduct = productDao.get(id);
+        assertThat(deletedProduct, nullValue());
+
     }
 }
