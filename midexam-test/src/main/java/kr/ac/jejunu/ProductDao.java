@@ -1,6 +1,5 @@
 package kr.ac.jejunu;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 
 public class ProductDao {
@@ -11,24 +10,26 @@ public class ProductDao {
     }
 
     public Product get(Long id) throws SQLException {
-        StatementStrategy statementStrategy = new GetProductStatementStrategy(id);
-        return jdbcContext.jdbcContextForGet(statementStrategy);
+        String sql = "select * from product where id = ?";
+        return jdbcContext.queryForObject(id, sql);
     }
 
     public Long insert(Product product) throws SQLException {
-        StatementStrategy statementStrategy = new InsertProductStatementStrategy(product);
-        return jdbcContext.jdbcContextForInsert(statementStrategy);
+        String sql = "insert into product(title, price) values (?, ?)";
+        return jdbcContext.insert(product, sql, this);
     }
 
     public void update(Product product) throws SQLException {
-        StatementStrategy statementStrategy = new UpdateProductStatementStrategy(product);
-        jdbcContext.jdbcContextForUpdate(statementStrategy);
+        String sql = "update product set title = ?, price = ? WHERE  id = ?";
+        Object[] params = new Object[]{product.getTitle(), product.getPrice(), product.getId()};
+        jdbcContext.update(sql, params);
 
     }
 
     public void delete(Long id) throws SQLException {
-        StatementStrategy statementStrategy = new DeleteProductStatementStrategy(id);
-        jdbcContext.jdbcContextForUpdate(statementStrategy);
+        String sql = "delete from product WHERE  id = ?";
+        Object[] params = new Object[]{id};
+        jdbcContext.update(sql, params);
     }
 
 }

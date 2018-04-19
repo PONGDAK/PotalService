@@ -123,4 +123,39 @@ public class JdbcContext {
                 }
         }
     }
+
+    void update(String sql, Object[] params) throws SQLException {
+        StatementStrategy statementStrategy = connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for(int i=0; i<params.length ; i++){
+                preparedStatement.setObject(i+1, params[i]);
+            }
+            return preparedStatement;
+        };
+        jdbcContextForUpdate(statementStrategy);
+    }
+
+    Long insert(Product product, String sql, ProductDao productDao) throws SQLException {
+        StatementStrategy statementStrategy = connection -> {
+            Object[] params = new Object[]{product.getTitle(), product.getPrice()};
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for(int i = 0; i < params.length ; i++){
+                preparedStatement.setObject(i+1, params[i]);
+            }
+            return preparedStatement;
+        };
+        return jdbcContextForInsert(statementStrategy);
+    }
+
+    Product queryForObject(Long id, String sql) throws SQLException {
+        StatementStrategy statementStrategy = connection -> {
+            Object[] params = new Object[]{id};
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for(int i=0; i<params.length; i++){
+                preparedStatement.setObject(i+1, params[i]);
+            }
+            return preparedStatement;
+        };
+        return jdbcContextForGet(statementStrategy);
+    }
 }
