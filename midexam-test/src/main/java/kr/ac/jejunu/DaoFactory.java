@@ -22,7 +22,11 @@ public class DaoFactory {
 
     @Bean
     public ProductDao productDao() {
-        return new ProductDao(dataSource());
+        return new ProductDao(jdbcContext());
+    }
+
+    private JdbcContext jdbcContext() {
+        return new JdbcContext(dataSource());
     }
 
     private DataSource dataSource() {
