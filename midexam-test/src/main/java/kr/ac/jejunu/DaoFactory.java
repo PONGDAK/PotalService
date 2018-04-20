@@ -42,9 +42,4 @@ public class DaoFactory {
         dataSource.setPassword(password);
         return dataSource;
     }
-
-    @Bean
-    public ConnectionMaker connectionMaker() {
-        return new JejuConnectionMaker();
-    }
 }
