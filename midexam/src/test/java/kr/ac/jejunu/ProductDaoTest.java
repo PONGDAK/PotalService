@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ProductDaoTest {
     private ProductDao productDao;
@@ -42,5 +43,36 @@ public class ProductDaoTest {
         assertEquals(id, insertedProduct.getId());
         assertEquals(product.getTitle(), insertedProduct.getTitle());
         assertEquals(product.getPrice(), insertedProduct.getPrice());
+    }
+
+    @Test
+    public void update() throws SQLException {
+        Product product = new Product();
+        product.setTitle("새감귤");
+        product.setPrice(10000);
+
+        Long id = productDao.insert(product);
+        product.setId(id);
+        product.setPrice(12000);
+        product.setTitle("바뀐감귤");
+        productDao.update(product);
+
+        Product updatedProduct = productDao.get(id);
+        assertEquals(product.getId(), updatedProduct.getId());
+        assertEquals(product.getTitle(), updatedProduct.getTitle());
+        assertEquals(product.getPrice(), updatedProduct.getPrice());
+    }
+
+    @Test
+    public void delete() throws SQLException {
+        Product product = new Product();
+        product.setTitle("새감귤");
+        product.setPrice(10000);
+
+        Long id = productDao.insert(product);
+        productDao.delete(id);
+
+        Product deletedProduct = productDao.get(id);
+        assertNull(deletedProduct);
     }
 }
