@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ProductDaoTest {
     private ProductDao productDao;
+
     @Before
     public void setup() {
         productDao = new ProductDao();
@@ -16,7 +17,6 @@ public class ProductDaoTest {
 
     @Test
     public void get() throws SQLException, ClassNotFoundException {
-        productDao = new ProductDao();
         Long id = 1L;
         String title = "제주감귤";
         Integer price = 15000;

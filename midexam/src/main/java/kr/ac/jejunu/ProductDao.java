@@ -25,10 +25,7 @@ public class ProductDao {
         return product;
     }
 
-    private Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/jeju", "jeju", "jejupw");
-    }
+
 
     public Long insert(Product product) throws ClassNotFoundException, SQLException {
         Connection connection = getConnection();
@@ -48,5 +45,10 @@ public class ProductDao {
         connection.close();
 
         return id;
+    }
+
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost/jeju", "jeju", "jejupw");
     }
 }
