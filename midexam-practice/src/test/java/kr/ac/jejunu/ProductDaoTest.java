@@ -16,7 +16,7 @@ public class ProductDaoTest {
         productDao = new JejuProductDao();
         hallaProductDao = new HallaProductDao();
     }
-
+//comment
     @Test
     public void get() throws SQLException, ClassNotFoundException {
         Long id = 1L;
