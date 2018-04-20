@@ -20,7 +20,7 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void get() throws SQLException, ClassNotFoundException {
+    public void get(){
         Long id = 1L;
         String title = "제주감귤";
         Integer price = 15000;
@@ -32,12 +32,9 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void add() throws SQLException, ClassNotFoundException {
+    public void add(){
         Product product = new Product();
-        product.setTitle("새감귤");
-        product.setPrice(10000);
-
-        Long id = productDao.insert(product);
+        Long id = insertTestData(product);
 
         Product insertedProduct = productDao.get(id);
         assertEquals(id, insertedProduct.getId());
@@ -46,12 +43,9 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void update() throws SQLException {
+    public void update(){
         Product product = new Product();
-        product.setTitle("새감귤");
-        product.setPrice(10000);
-
-        Long id = productDao.insert(product);
+        Long id = insertTestData(product);
         product.setId(id);
         product.setPrice(12000);
         product.setTitle("바뀐감귤");
@@ -66,13 +60,17 @@ public class ProductDaoTest {
     @Test
     public void delete() throws SQLException {
         Product product = new Product();
-        product.setTitle("새감귤");
-        product.setPrice(10000);
-
-        Long id = productDao.insert(product);
+        Long id = insertTestData(product);
         productDao.delete(id);
 
         Product deletedProduct = productDao.get(id);
         assertNull(deletedProduct);
+    }
+
+    private Long insertTestData(Product product) {
+        product.setTitle("새감귤");
+        product.setPrice(10000);
+
+        return productDao.insert(product);
     }
 }
