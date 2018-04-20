@@ -18,8 +18,8 @@ public class ProductDao {
         try {
             connection = dataSource.getConnection();
 
-            preparedStatement = connection.prepareStatement("select * from product where id = ?");
-            preparedStatement.setLong(1, id);
+            StatementStrategy statementStrategy = new GetProductStatementStrategy(id);
+            preparedStatement = statementStrategy.makeConnection(connection);
 
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
@@ -61,9 +61,9 @@ public class ProductDao {
         try {
             connection = dataSource.getConnection();
 
-            preparedStatement = connection.prepareStatement("insert into product(title, price) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, product.getTitle());
-            preparedStatement.setInt(2, product.getPrice());
+            StatementStrategy statementStrategy = new InsertProductStatementStrategy(product);
+            preparedStatement = statementStrategy.makeConnection(connection);
+
 
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
@@ -100,10 +100,9 @@ public class ProductDao {
         try {
             connection = dataSource.getConnection();
 
-            preparedStatement = connection.prepareStatement("update product set title = ?, price = ? where id= ?");
-            preparedStatement.setString(1, product.getTitle());
-            preparedStatement.setInt(2, product.getPrice());
-            preparedStatement.setLong(3, product.getId());
+            StatementStrategy statementStrategy = new UpdateProductStatementStrategy(product);
+            preparedStatement = statementStrategy.makeConnection(connection);
+
 
             preparedStatement.executeUpdate();
 
@@ -129,8 +128,8 @@ public class ProductDao {
         try {
             connection = dataSource.getConnection();
 
-            preparedStatement = connection.prepareStatement("delete from product where id= ?");
-            preparedStatement.setLong(1, id);
+            StatementStrategy statementStrategy = new DeleteProductStatementStrategy(id);
+            preparedStatement = statementStrategy.makeConnection(connection);
 
             preparedStatement.executeUpdate();
 
