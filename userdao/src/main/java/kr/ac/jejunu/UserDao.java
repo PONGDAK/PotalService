@@ -15,7 +15,7 @@ public class UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public User get(int id) throws SQLException {
+    public User get(int id){
         String sql = "select * from userinfo where id = ?";
         Object[] params = new Object[]{id};
         try {
