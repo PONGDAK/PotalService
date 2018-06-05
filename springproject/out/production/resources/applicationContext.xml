@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="com.study.spring.HelloImpl" name="hello"/>
+    <bean name="helloPerson" class="com.study.spring.HelloPerson">
+        <property name="name" value="테스터"/>
+        <property name="hello" ref="hello" />
+    </bean>
+
+</beans>

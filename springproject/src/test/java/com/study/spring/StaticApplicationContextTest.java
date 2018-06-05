@@ -22,7 +22,7 @@ public class StaticApplicationContextTest {
         assertThat(hello.sayHello(), is("Hello!!!"));
     }
 
-    //특정빈만 빠르게 테스트하거나 생명주기같은거 확인하고 싶을때 종종 사용함
+     //특정빈만 빠르게 테스트하거나 생명주기같은거 확인하고 싶을때 종종 사용함
     @Test
     public void staticApplicationContextWithDI(){
         StaticApplicationContext applicationContext = new StaticApplicationContext();
@@ -32,6 +32,6 @@ public class StaticApplicationContextTest {
         beanDefinition.getPropertyValues().addPropertyValue("hello", new RuntimeBeanReference("hello"));
         applicationContext.registerBeanDefinition("helloPerson", beanDefinition);
         Hello hello = applicationContext.getBean("helloPerson", Hello.class);
-        assertThat(hello.sayHello(), is("Hello!!!테스터"));
+        assertThat(hello.sayHello(), is("Hello!!! 테스터"));
     }
 }
