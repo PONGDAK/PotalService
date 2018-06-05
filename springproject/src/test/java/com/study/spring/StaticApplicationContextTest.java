@@ -29,7 +29,11 @@ public class StaticApplicationContextTest {
         applicationContext.registerSingleton("hello", HelloImpl.class);
         BeanDefinition beanDefinition = new RootBeanDefinition(HelloPerson.class);
         beanDefinition.getPropertyValues().addPropertyValue("name", "테스터");
-        beanDefinition.getPropertyValues().addPropertyValue("hello", new RuntimeBeanReference("hello"));
+
+        //Contsructor Injection을 static으로 하는 방법
+        beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(new RuntimeBeanReference("hello"));
+
+//        beanDefinition.getPropertyValues().addPropertyValue("hello", new RuntimeBeanReference("hello"));
         applicationContext.registerBeanDefinition("helloPerson", beanDefinition);
         Hello hello = applicationContext.getBean("helloPerson", Hello.class);
         assertThat(hello.sayHello(), is("Hello!!! 테스터"));

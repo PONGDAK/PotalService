@@ -5,7 +5,8 @@
     <bean class="com.study.spring.HelloImpl" name="hello"/>
     <bean name="helloPerson" class="com.study.spring.HelloPerson">
         <property name="name" value="테스터"/>
-        <property name="hello" ref="hello" />
+        <!--xml에서 constructor injection-->
+        <constructor-arg name="hello" ref="hello" />
     </bean>
 
 </beans>

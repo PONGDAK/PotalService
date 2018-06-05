@@ -5,8 +5,8 @@ import com.study.spring.HelloPerson
 beans {
     hello(HelloImpl) {
     }
-    helloPerson(HelloPerson) {
+//    그루비에서 constructor injection
+    helloPerson(HelloPerson, name) {
         name = '테스터'
-        hello = hello
     }
 }
