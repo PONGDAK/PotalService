@@ -23,6 +23,8 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.37'
     compile "org.springframework:spring-context:${springVersion}"
     compile "org.springframework:spring-jdbc:${springVersion}"
+    //Dispatcher Servlet을 위해
+    compile "org.springframework:spring-webmvc:${springVersion}"
     //그루비 컴파일 하게 해줌
     compile group: 'org.springframework.integration', name: 'spring-integration-groovy', version: "${springVersion}"
     compileOnly 'org.projectlombok:lombok:1.16.20'
