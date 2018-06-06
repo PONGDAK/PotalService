@@ -3,9 +3,11 @@ package com.study.spring.servlet;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 @Slf4j
+@WebFilter
 public class HelloFilter implements Filter{
 
     @Override

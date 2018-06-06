@@ -7,11 +7,14 @@ import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Slf4j
+//servlet이 3.1스펙으로 가면서 WEB-INF를 없애버림 annotaion 기반으로 전부 바뀜
+@WebServlet(urlPatterns = "/hello")
 //Controller 추가로 서브렛 빈으로 만듬
 @Controller("/hello")
 public class HelloServlet extends GenericServlet{
