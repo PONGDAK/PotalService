@@ -1,12 +1,11 @@
-import com.study.spring.Hello
-import com.study.spring.HelloImpl
-import com.study.spring.HelloPerson
+import com.study.spring.hello.HelloImpl
+import com.study.spring.hello.HelloPerson
 
 beans {
     hello(HelloImpl) {
     }
-    helloPerson(HelloPerson) {
+//    그루비에서 constructor injection
+    helloPerson(HelloPerson, name) {
         name = '테스터'
-        hello = hello
     }
 }

@@ -1,6 +1,5 @@
-import com.study.spring.Hello
-import com.study.spring.HelloImpl
-import com.study.spring.HelloPerson
+import com.study.spring.hello.HelloImpl
+import com.study.spring.hello.HelloPerson
 
 beans {
     hello(HelloImpl) {

@@ -1,4 +1,4 @@
-package com.study.spring;
+package com.study.spring.hello;
 
 import org.springframework.stereotype.Component;
 

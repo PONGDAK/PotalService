@@ -1,5 +1,6 @@
 package com.study.spring;
 
+import com.study.spring.hello.Hello;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericGroovyApplicationContext;

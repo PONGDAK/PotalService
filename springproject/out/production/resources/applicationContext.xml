@@ -2,10 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean class="com.study.spring.HelloImpl" name="hello"/>
-    <bean name="helloPerson" class="com.study.spring.HelloPerson">
+    <bean class="com.study.spring.hello.HelloImpl" name="hello"/>
+    <bean name="helloPerson" class="com.study.spring.hello.HelloPerson">
         <property name="name" value="테스터"/>
-        <property name="hello" ref="hello" />
+        <!--xml에서 constructor injection-->
+        <constructor-arg name="hello" ref="hello" />
     </bean>
 
 </beans>

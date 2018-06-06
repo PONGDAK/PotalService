@@ -5,6 +5,9 @@ import static org.hamcrest.CoreMatchers.*;
 // asssertThat 사용하려고
 import static org.hamcrest.MatcherAssert.*;
 
+import com.study.spring.hello.Hello;
+import com.study.spring.hello.HelloImpl;
+import com.study.spring.hello.HelloPerson;
 import org.junit.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
