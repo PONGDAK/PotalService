@@ -14,4 +14,15 @@
         <beans:property name="prefix" value="/WEB-INF/views/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
+
+    <!--simpleUrlHandlerMapping 사용하기위해 추가 지금은 잘안쓰지만 이해를돕기위해-->
+    <!--디폴트가 아닌 핸들러 매핑하면 디폴트 핸들러 매핑 사용 못하고 이걸로 계속써야함-->
+    <beans:bean class = "org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <beans:property name="mappings">
+            <beans:props>
+                <beans:prop key="/a/b/*">/helloworld</beans:prop>
+            </beans:props>
+        </beans:property>
+
+    </beans:bean>
 </beans:beans>
