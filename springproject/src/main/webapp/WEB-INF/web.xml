@@ -25,7 +25,14 @@
     <filter-mapping>
         <filter-name>helloFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>f
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.study.spring.servlet.HelloContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.study.spring.servlet.HelloRequestListener</listener-class>
+    </listener>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
