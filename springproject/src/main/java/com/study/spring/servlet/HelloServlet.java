@@ -1,6 +1,7 @@
 package com.study.spring.servlet;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @Slf4j
+//Controller 추가로 서브렛 빈으로 만듬
+@Controller("/hello")
 public class HelloServlet extends GenericServlet{
     @Override
     public void destroy() {

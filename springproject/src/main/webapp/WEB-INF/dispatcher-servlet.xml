@@ -7,8 +7,8 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <!--컴포넌트 스캔 위치 지정-->
-    <context:component-scan base-package="com.study.spring.mvc"/>
+    <!--컴포넌트 스캔 위치 지정 하위컴포넌트 전부 찾음-->
+    <context:component-scan base-package="com.study.spring"/>
     <!--view resolver가 views/ 밑에 .jsp 파일중에서 찾아줌-->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/"/>
@@ -21,8 +21,11 @@
         <beans:property name="mappings">
             <beans:props>
                 <beans:prop key="/a/b/*">/helloworld</beans:prop>
+                <beans:prop key="/c/d/*">/hello</beans:prop>
             </beans:props>
         </beans:property>
-
     </beans:bean>
+
+    <!--어댑터를 디폴트가 아닌값으로 변경해서 /a/b/* 주소에서 에러남 -->
+    <beans:bean class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter"/>
 </beans:beans>
