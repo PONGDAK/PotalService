@@ -1,5 +1,6 @@
 package com.study.spring.mvc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,13 +17,15 @@ import java.io.IOException;
 //@component를 상속받은애임 컨트롤러로 지정되면 빈으로 지정되고 컨트롤러 역할을함  service , repository또한 그럼
 @org.springframework.stereotype.Controller("/helloworld")
 @RequestMapping("/helloworld")
+@Slf4j
 public class SimpleController {
 
     //annotaion 기반 handl er adaptor
     @RequestMapping("/hi")
     public ModelAndView hello() {
-//        ModelAndView modelAndView = new ModelAndView("hello");
-        ModelAndView modelAndView = null;
+        log.info("---------- handler -----------");
+        ModelAndView modelAndView = new ModelAndView("hello");
+//        ModelAndView modelAndView = null;
         modelAndView.addObject("hello", "Hello World!!!");
         return modelAndView;
     }

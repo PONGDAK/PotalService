@@ -11,6 +11,12 @@
     <context:component-scan base-package="com.study.spring"/>
     <!--리퀘스트 메소드 핸들러 매핑 빈정리 어노테이션 기반 MVC 모두 처래해줌-->
     <annotation-driven/>
+    <interceptors>
+        <interceptor>
+            <mapping path="/**/*"/>
+            <beans:bean class="com.study.spring.mvc.HelloInterceptor"/>
+        </interceptor>
+    </interceptors>
 
     <!--ContentNegotiatingViewResolver를 쓸때 나머지 뷰리졸버 내재화시키는게 일반적 밖에있음 못태울수도있음-->
     <beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
