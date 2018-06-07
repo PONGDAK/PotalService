@@ -9,6 +9,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--컴포넌트 스캔 위치 지정 하위컴포넌트 전부 찾음-->
     <context:component-scan base-package="com.study.spring"/>
+    <!--리퀘스트 메소드 핸들러 매핑 빈정리 어노테이션 기반 MVC 모두 처래해줌-->
+    <annotation-driven/>
 
     <!--ContentNegotiatingViewResolver를 쓸때 나머지 뷰리졸버 내재화시키는게 일반적 밖에있음 못태울수도있음-->
     <beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -40,4 +42,10 @@
            </beans:list>
         </beans:property>
     </beans:bean>
+
+    <!--/images/** 녀석이오면 /WEB-INF/static/에 넣어줘 -->
+    <resources mapping="/images/**" location="/WEB-INF/static/"/>
+
+    <!--id 값을 넣어줘야 제대로 정상 동작함-->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans:beans>
