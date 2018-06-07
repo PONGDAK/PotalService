@@ -1,5 +1,6 @@
 package com.study.spring.mvc;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -12,11 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/helloworld")
 public class SimpleController {
 
-    //annotaion 기반 handler adaptor
+    //annotaion 기반 handl er adaptor
     @RequestMapping("/hi")
     public ModelAndView hello() {
-        ModelAndView modelAndView = new ModelAndView("hello");
+//        ModelAndView modelAndView = new ModelAndView("hello");
+        ModelAndView modelAndView = null;
         modelAndView.addObject("hello", "Hello World!!!");
         return modelAndView;
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public String error(NullPointerException e){
+        return "error";
     }
 }
