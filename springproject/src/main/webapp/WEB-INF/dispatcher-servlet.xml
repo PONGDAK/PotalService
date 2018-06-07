@@ -9,9 +9,35 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--컴포넌트 스캔 위치 지정 하위컴포넌트 전부 찾음-->
     <context:component-scan base-package="com.study.spring"/>
-    <!--view resolver가 views/ 밑에 .jsp 파일중에서 찾아줌-->
-    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/WEB-INF/views/"/>
-        <beans:property name="suffix" value=".jsp"/>
+
+    <!--ContentNegotiatingViewResolver를 쓸때 나머지 뷰리졸버 내재화시키는게 일반적 밖에있음 못태울수도있음-->
+    <beans:bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+
+        <!-- 사용자지정 확장자 -->
+        <beans:property name="contentNegotiationManager">
+            <beans:bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <beans:property name="mediaTypes">
+                    <beans:value>
+                        js = application/json
+                        x = application/xml
+                    </beans:value>
+                </beans:property>
+            </beans:bean>
+        </beans:property>
+        <beans:property name="defaultViews">
+            <beans:list>
+                <beans:bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+                <beans:bean class="org.springframework.web.servlet.view.xml.MappingJackson2XmlView"/>
+            </beans:list>
+        </beans:property>
+        <beans:property name="viewResolvers">
+           <beans:list>
+               <!--view resolver가 views/ 밑에 .jsp 파일중에서 찾아줌-->
+               <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                   <beans:property name="prefix" value="/WEB-INF/views/"/>
+                   <beans:property name="suffix" value=".jsp"/>
+               </beans:bean>
+           </beans:list>
+        </beans:property>
     </beans:bean>
 </beans:beans>
