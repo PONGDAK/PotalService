@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,7 +41,32 @@ public class UserController {
 
     @GetMapping("/path/{id}/{name:[a-z]+}")
     //원래는 @PathVariable("id") 이렇게 매핑해줘야하지만 안적어도 알아서 같은이름찾아 매핑해줌
-    public ModelAndView user(@PathVariable Integer id, @PathVariable String name, @RequestParam String password){
+    public ModelAndView user(@PathVariable Integer id, @PathVariable String name, @RequestParam String password, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView("user");
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+        modelAndView.addObject("user", user);
+        //쿠키는 도메인별 패스별 지정되므로 경로를 지정해줘야함 경로지정해주면 이안에서 계속 업데이트만됨
+        Cookie idCookie = new Cookie("id", String.valueOf(id));
+        Cookie nameCookie = new Cookie("name", name);
+        Cookie passwordCookie = new Cookie("password", password);
+        idCookie.setPath("/user/cookie");
+        nameCookie.setPath("/user/cookie");
+        passwordCookie.setPath("/user/cookie");
+
+        //쿠키는 서버사이드에서 리스폰스시 구워짐
+        response.addCookie(idCookie);
+        response.addCookie(nameCookie);
+        response.addCookie(passwordCookie);
+
+        return modelAndView;
+
+    }
+
+    @GetMapping("/cookie")
+    public ModelAndView cookie(@CookieValue("id") Integer id, @CookieValue("name") String name, @CookieValue("password") String password){
         ModelAndView modelAndView = new ModelAndView("user");
         User user = new User();
         user.setId(id);
