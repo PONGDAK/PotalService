@@ -1,8 +1,10 @@
 package com.study.spring.mvc;
 
+import com.study.spring.hello.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +20,22 @@ public class UserController {
         Integer id = Integer.valueOf(request.getParameter("id"));
         String name = request.getParameter("name");
         String password = request.getParameter("password");
+        //session
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+        session.setAttribute("user",user);
+
         response.getWriter().println(String.format("<h1> %s : %s </h1><br />", "ID", id));
         response.getWriter().println(String.format("<h1> %s : %s </h1><br />", "Name", name));
         response.getWriter().println(String.format("<h1> %s : %s </h1><br />", "Password", password));
+    }
 
+    @GetMapping("/session")
+    public ModelAndView session(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("user");
+        modelAndView.addObject("user", session.getAttribute("user"));
+        return modelAndView;
     }
 }
