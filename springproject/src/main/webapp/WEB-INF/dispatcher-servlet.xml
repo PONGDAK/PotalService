@@ -10,7 +10,7 @@
     <!--컴포넌트 스캔 위치 지정 하위컴포넌트 전부 찾음-->
     <context:component-scan base-package="com.study.spring"/>
     <!--리퀘스트 메소드 핸들러 매핑 빈정리 어노테이션 기반 MVC 모두 처래해줌-->
-    <annotation-driven/>
+    <annotation-driven enable-matrix-variables="true"/>
     <interceptors>
         <interceptor>
             <mapping path="/**/*"/>
