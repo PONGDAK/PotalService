@@ -38,9 +38,9 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/path/{id}")
+    @GetMapping("/path/{id}/{name:[a-z]+}")
     //원래는 @PathVariable("id") 이렇게 매핑해줘야하지만 안적어도 알아서 같은이름찾아 매핑해줌
-    public ModelAndView user(@PathVariable Integer id, @MatrixVariable  String name, @MatrixVariable String password){
+    public ModelAndView user(@PathVariable Integer id, @PathVariable String name, @RequestParam String password){
         ModelAndView modelAndView = new ModelAndView("user");
         User user = new User();
         user.setId(id);
