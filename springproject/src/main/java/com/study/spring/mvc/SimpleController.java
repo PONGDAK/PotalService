@@ -1,10 +1,7 @@
 package com.study.spring.mvc;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,12 +13,13 @@ import java.io.IOException;
 
 //@component를 상속받은애임 컨트롤러로 지정되면 빈으로 지정되고 컨트롤러 역할을함  service , repository또한 그럼
 @org.springframework.stereotype.Controller("/helloworld")
+//클래스에는 리퀘스트 매핑에 경로 안적혀도 에러안남 스프링 요즘버전에서는
 @RequestMapping("/helloworld")
 @Slf4j
 public class SimpleController {
 
     //annotaion 기반 handl er adaptor
-    @RequestMapping("/hi")
+    @GetMapping("/hi")
     public ModelAndView hello() {
         log.info("---------- handler -----------");
         ModelAndView modelAndView = new ModelAndView("hello");
@@ -35,13 +33,13 @@ public class SimpleController {
         return "error";
     }
 
-    @RequestMapping(path = "/upload", method = RequestMethod.GET)
+    @GetMapping(path = "/upload")
     public String upload(){
         return "upload";
     }
 
     //HttpServletRequest 는 필요없는데 저장된경로 알아보려고 추가
-    @RequestMapping(path = "/upload", method = RequestMethod.POST)
+    @PostMapping(path = "/upload")
     public ModelAndView upload(@RequestParam("file")MultipartFile file, HttpServletRequest request) throws IOException {
         //apache commons 오픈소스 이용 파일업로드 (기본적으로 스프링이 채택하기도 했음)
         File path = new File(request.getServletContext().getRealPath("/") + "/WEB-INF/static/" + file.getOriginalFilename());
