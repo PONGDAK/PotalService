@@ -3,7 +3,9 @@ package com.study.spring.mvc;
 import com.study.spring.hello.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,5 +39,18 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("user");
         modelAndView.addObject("user", session.getAttribute("user"));
         return modelAndView;
+    }
+
+    @GetMapping("/path/{id}")
+    //원래는 @PathVariable("id") 이렇게 매핑해줘야하지만 안적어도 알아서 같은이름찾아 매핑해줌
+    public ModelAndView user(@PathVariable Integer id, @RequestParam String name, @RequestParam String password){
+        ModelAndView modelAndView = new ModelAndView("user");
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+
     }
 }
