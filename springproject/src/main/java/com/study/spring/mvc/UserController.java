@@ -2,6 +2,7 @@ package com.study.spring.mvc;
 
 import com.study.spring.hello.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,6 +75,44 @@ public class UserController {
         user.setPassword(password);
         modelAndView.addObject("user", user);
         return modelAndView;
-
     }
+
+    //파라미터로 들어온 애들 다 알아서 잘 감싸서 전달해줌 왠만한 역할 다해줌 거기다 @ModelAttribute생략해서 써도됨
+    @GetMapping
+    public void user(@ModelAttribute User user){
+    }
+
+    /* 위와 같은 코드
+    GetMapping
+    public void user( User user){
+    }
+
+    오브젝트 네임을 그대로 본따서 찾음 modelAndView.addObject("user", user); 역할
+    GetMapping
+    public User user(){
+        return User();
+    }
+    */
+
+    /*별도로 명시안하고 void면 user.jsp를 찾음
+      Model 오브젝트 다루기 편함 Map 마샬링 편함  ModelMap 둘다 다루기 편함
+    @GetMapping
+    public void user(Model model){
+        User user = new User();
+        user.setId(1);
+        user.setName("test");
+        user.setPassword("1234");
+        model.addAttribute(user);
+    }
+     String으로도 구현가능 위와 같은 동작
+    @GetMapping
+    public String user(Model model){
+        User user = new User();
+        user.setId(1);
+        user.setName("test");
+        user.setPassword("1234");
+        model.addAttribute(user);
+        return "user";
+    }
+    */
 }
