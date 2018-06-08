@@ -1,8 +1,8 @@
 package com.study.spring.mvc;
 
 import com.study.spring.hello.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @RequestMapping("/user")
 @Controller
+@Slf4j
 public class UserController {
     //response 객체에 직접 리턴값 실으려고 return 안씀
     @GetMapping("/servlet")
@@ -77,18 +78,48 @@ public class UserController {
         return modelAndView;
     }
 
-    //파라미터로 들어온 애들 다 알아서 잘 감싸서 전달해줌 왠만한 역할 다해줌 거기다 @ModelAttribute생략해서 써도됨
+    //user 패스이름으로 user.jsp찾음
+    @GetMapping
+    public User user(){
+        return new User();
+    }
+
+    //GetMapping으로하면 위의 메소드랑 구분이 안되서 뻑남
+    @PostMapping
+    public void user(User user){
+        log.info("------ void test user ------");
+    }
+
+    @GetMapping("/string")
+    public String returnStringTest(){
+        return "user";
+    }
+
+    //특정 주소로 보내주는것 redirect
+    @GetMapping("/redirect")
+    public String redirectStringTest(){
+        return "redirect:/user";
+    }
+
+    //forward는 주소창을 유지하고 해당되는 뷰를 보여주는것 리퀘스트의 컨텐츠정보를 잘들고 넘겨줌
+    @GetMapping("/forward")
+    public String forwardStringTest(){
+        return "forward:/user";
+    }
+
+    /*
+      //파라미터로 들어온 애들 다 알아서 잘 감싸서 전달해줌 왠만한 역할 다해줌 거기다 @ModelAttribute생략해서 써도됨
     @GetMapping
     public void user(@ModelAttribute User user){
     }
 
-    /* 위와 같은 코드
-    GetMapping
+    위와 같은 코드
+    @GetMapping
     public void user( User user){
     }
 
     오브젝트 네임을 그대로 본따서 찾음 modelAndView.addObject("user", user); 역할
-    GetMapping
+    @GetMapping
     public User user(){
         return User();
     }
