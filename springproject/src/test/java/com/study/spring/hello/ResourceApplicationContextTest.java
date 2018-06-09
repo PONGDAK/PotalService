@@ -1,4 +1,4 @@
-package com.study.spring;
+package com.study.spring.hello;
 
 import com.study.spring.hello.Hello;
 import org.junit.Test;

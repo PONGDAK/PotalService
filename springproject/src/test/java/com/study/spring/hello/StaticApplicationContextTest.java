@@ -1,4 +1,4 @@
-package com.study.spring;
+package com.study.spring.hello;
 
 // is 사용하려고
 import static org.hamcrest.CoreMatchers.*;
