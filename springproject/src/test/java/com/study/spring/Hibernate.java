@@ -26,8 +26,8 @@ public class Hibernate {
     @Before
     public void setup() {
         Configuration configuration = new Configuration().configure("jejunu.cfg.xml")
-                .addResource("User.hbm.xml")
-                .addResource("Comment.hbm.xml");
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Comment.class);
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         try {
             sessionFactory = configuration.buildSessionFactory(registry);
