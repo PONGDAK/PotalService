@@ -13,5 +13,10 @@
         <property name="password" type="java.lang.String">
             <column name="password" />
         </property>
+        <bag name="comments">
+            <key column="userinfo_id"/>
+            <one-to-many class="com.study.spring.hello.Comment"/>
+        </bag>
+
     </class>
 </hibernate-mapping>
