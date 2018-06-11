@@ -3,6 +3,7 @@ package com.portal.service.config;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +15,55 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import org.springframework.web.servlet.view.xml.MappingJackson2XmlView;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebMvc  //anntiaion-driven 이랑 같은 효과
 @ComponentScan(basePackages = "com.portal.service")
+@MapperScan("com.portal.service.model.memo")
+//@EnableJpaRepositories(basePackages = "com.portal.service.config", entityManagerFactoryRef = "entityManagerFactoryBean")
 public class WebConfig implements WebMvcConfigurer{
+    /*
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
+        entityManagerFactoryBean.setPackagesToScan("com.portal.service.config");
+
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+        entityManagerFactoryBean.setJpaProperties(properties);
+        return entityManagerFactoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
+    }
+    */
+
+    /*
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        if(configurer.getUrlPathHelper() == null) {
+            configurer.setUrlPathHelper(new UrlPathHelper());
+        }
+        configurer.getUrlPathHelper().setRemoveSemicolonContent(false);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new HelloInterceptor());
+    }
+
+    */
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -49,13 +91,14 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/");
+        registry.addResourceHandler("/include/**").addResourceLocations("/WEB-INF/views/include/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.mediaType("js", MediaType.APPLICATION_JSON);
-        configurer.mediaType("x", MediaType.APPLICATION_XML);
+//        configurer.mediaType("x", MediaType.APPLICATION_XML);
     }
 
     //뷰리졸버 달아줌
@@ -63,7 +106,7 @@ public class WebConfig implements WebMvcConfigurer{
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.jsp("/WEB-INF/views/", ".jsp");
         registry.enableContentNegotiation(new MappingJackson2JsonView());
-        registry.enableContentNegotiation(new MappingJackson2XmlView());
+//        registry.enableContentNegotiation(new MappingJackson2XmlView());
     }
 
     //멀티파트 뷰 리졸버 달아줌 ... <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
