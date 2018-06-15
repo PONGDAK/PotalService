@@ -29,6 +29,5 @@ public class MainControllerTest {
     }
     @Test
     public void main() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/doA"));
     }
 }
