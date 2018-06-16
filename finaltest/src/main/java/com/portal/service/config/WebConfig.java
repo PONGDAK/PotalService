@@ -36,6 +36,37 @@ public class WebConfig implements WebMvcConfigurer{
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/member/login_check.do");
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/include/**").addResourceLocations("/WEB-INF/views/include/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
+
+    }
+
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.mediaType("js", MediaType.APPLICATION_JSON);
+//        configurer.mediaType("x", MediaType.APPLICATION_XML);
+    }
+
+    //뷰리졸버 달아줌
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("/WEB-INF/views/", ".jsp");
+        registry.enableContentNegotiation(new MappingJackson2JsonView());
+//        registry.enableContentNegotiation(new MappingJackson2XmlView());
+    }
+
+    //멀티파트 뷰 리졸버 달아줌 ... <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxInMemorySize(100000000);
+        multipartResolver.setMaxUploadSize(200000000);
+        return new CommonsMultipartResolver();
+    }
+
     @Bean
     public DataSourceTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
@@ -66,34 +97,8 @@ public class WebConfig implements WebMvcConfigurer{
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/include/**").addResourceLocations("/WEB-INF/views/include/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
-
-    }
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.mediaType("js", MediaType.APPLICATION_JSON);
-//        configurer.mediaType("x", MediaType.APPLICATION_XML);
-    }
-
-    //뷰리졸버 달아줌
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("/WEB-INF/views/", ".jsp");
-        registry.enableContentNegotiation(new MappingJackson2JsonView());
-//        registry.enableContentNegotiation(new MappingJackson2XmlView());
-    }
-
-    //멀티파트 뷰 리졸버 달아줌 ... <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     @Bean
-    public MultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxInMemorySize(100000000);
-        multipartResolver.setMaxUploadSize(200000000);
-        return new CommonsMultipartResolver();
+    public String uploadPath(){
+        return "d:/upload";
     }
 }

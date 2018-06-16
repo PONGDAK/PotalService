@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <a href="${path}/">회원관리</a> |
+<a href="${path}/upload/uploadAjax">업로드 테스트</a>
 
 <div style="text-align:right;">
     <c:choose>
