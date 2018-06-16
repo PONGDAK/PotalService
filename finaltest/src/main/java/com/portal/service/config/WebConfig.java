@@ -22,48 +22,7 @@ import javax.sql.DataSource;
 @EnableWebMvc  //anntiaion-driven 이랑 같은 효과
 @ComponentScan(basePackages = "com.portal.service")
 @MapperScan("com.portal.service.model.memo")
-//@EnableJpaRepositories(basePackages = "com.portal.service.config", entityManagerFactoryRef = "entityManagerFactoryBean")
 public class WebConfig implements WebMvcConfigurer{
-    /*
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setPackagesToScan("com.portal.service.config");
-
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-
-        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactoryBean.setJpaProperties(properties);
-        return entityManagerFactoryBean;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
-    }
-    */
-
-    /*
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        if(configurer.getUrlPathHelper() == null) {
-            configurer.setUrlPathHelper(new UrlPathHelper());
-        }
-        configurer.getUrlPathHelper().setRemoveSemicolonContent(false);
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new HelloInterceptor());
-    }
-
-    */
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -91,8 +50,10 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/include/**").addResourceLocations("/WEB-INF/views/include/");
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/include/**").addResourceLocations("/WEB-INF/views/include/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
+
     }
 
     @Override
@@ -112,6 +73,9 @@ public class WebConfig implements WebMvcConfigurer{
     //멀티파트 뷰 리졸버 달아줌 ... <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     @Bean
     public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxInMemorySize(100000000);
+        multipartResolver.setMaxUploadSize(200000000);
         return new CommonsMultipartResolver();
     }
 }
