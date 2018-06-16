@@ -10,8 +10,20 @@
 <head>
     <title>Title</title>
     <%@ include file="../include/header.jsp" %>
+
+    <!-- include libraries(bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js -->
+    <link href="${path}/summernote/summernote.css" rel="stylesheet">
+    <script src="${path}/summernote/summernote.js"></script>
+
     <script type="text/javascript">
         $(function(){
+            $("#memo").summernote({
+                height : 300,
+                width : 800
+            });
             $("#btnUpdate").click(function(){
                 document.form1.action="${path}/memo/update/${dto.id}";
                 document.form1.submit();

@@ -10,11 +10,27 @@
 <head>
     <title>메모장</title>
     <%@include file="../include/header.jsp" %>
-<script>
-    function memo_view(id) {
-        location.href = "${path}/memo/view/" + id;
-    }
-</script>
+
+    <!-- include libraries(bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js -->
+    <link href="${path}/summernote/summernote.css" rel="stylesheet">
+    <script src="${path}/summernote/summernote.js"></script>
+
+    <script>
+        $(function() {
+            //id가 memo인 태그를 summernote로 변경
+            $("#memo").summernote({
+                height : 150,
+                width : 600
+            });
+        });
+
+        function memo_view(id) {
+            location.href = "${path}/memo/view/" + id;
+        }
+    </script>
 </head>
 <body>
 <%@include file="../include/menu.jsp" %>
@@ -39,7 +55,7 @@
             <td><a href="#" onclick="memo_view('${row.id}')">
                     ${row.memo}</a></td>
             <td><fmt:formatDate value="${row.post_date}"
-                                pattern="yyyy-MM-dd HH:mm:ss" /> </td>
+                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
         </tr>
     </c:forEach>
 </table>
