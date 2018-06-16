@@ -1,5 +1,7 @@
 package com.portal.service.config;
 
+import com.portal.service.interceptor.AdminInterceptor;
+import com.portal.service.interceptor.LoginInterceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,7 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -22,8 +26,21 @@ import javax.sql.DataSource;
 @EnableWebMvc  //anntiaion-driven 이랑 같은 효과
 @ComponentScan(basePackages = "com.portal.service")
 @MapperScan("com.portal.service.model.memo")
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy //AOP
+@EnableTransactionManagement
 public class WebConfig implements WebMvcConfigurer{
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/login_check.do", "~~").excludePathPatterns("/");
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/member/login_check.do");
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
