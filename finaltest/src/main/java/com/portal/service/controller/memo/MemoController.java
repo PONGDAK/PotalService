@@ -22,30 +22,30 @@ public class MemoController {
     }
 
     @RequestMapping("list.do")
-    public ModelAndView list(){
-        List<MemoDTO> items=memoService.list();
+    public ModelAndView list() {
+        List<MemoDTO> items = memoService.list();
         return new ModelAndView("memo/memo_list", "list", items);
     }
 
     @RequestMapping("insert.do")
-    public String insert(MemoDTO dto){
+    public String insert(MemoDTO dto) {
         memoService.insert(dto);
         return "redirect:/memo/list.do";
     }
 
     @RequestMapping("view/{id}")
-    public ModelAndView view(@PathVariable int id){
+    public ModelAndView view(@PathVariable int id) {
         return new ModelAndView("memo/view", "dto", memoService.memo_view(id));
     }
 
     @RequestMapping("update/{id}")
-    public String update(@PathVariable int id, MemoDTO dto){
+    public String update(@PathVariable int id, MemoDTO dto) {
         memoService.update(dto);
         return "redirect:/memo/list.do";
     }
 
     @RequestMapping("delete/{id}")
-    public String delete(@PathVariable int id){
+    public String delete(@PathVariable int id) {
         memoService.delete(id);
         return "redirect:/memo/list.do";
     }

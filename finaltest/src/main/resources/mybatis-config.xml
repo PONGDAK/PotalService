@@ -5,7 +5,7 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="com.portal.service.model.dto.MemberDTO" alias="memberDTO"/>
+		<typeAlias type="com.portal.service.model.member.dto.MemberDTO" alias="memberDTO"/>
 	</typeAliases>
 
 </configuration>

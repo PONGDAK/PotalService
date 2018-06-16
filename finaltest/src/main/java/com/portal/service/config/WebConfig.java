@@ -37,7 +37,7 @@ public class WebConfig implements WebMvcConfigurer{
     public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource());
-        sqlSessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
+//        sqlSessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
         sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mappers/**/*Mapper.xml"));
 
         return sqlSessionFactory;
