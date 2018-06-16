@@ -7,7 +7,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 @EnableWebMvc  //anntiaion-driven 이랑 같은 효과
 @ComponentScan(basePackages = "com.portal.service")
 @MapperScan("com.portal.service.model.memo")
+@EnableAspectJAutoProxy
 public class WebConfig implements WebMvcConfigurer{
     @Bean
     public DataSource dataSource() {

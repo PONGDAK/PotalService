@@ -14,8 +14,6 @@ import javax.servlet.http.HttpSession;
 @Controller //컨트롤러 빈으로 등록
 @RequestMapping("/member")
 public class MemberController {
-
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
     private final MemberService memberService;
 
     @Inject
