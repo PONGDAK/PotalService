@@ -11,7 +11,8 @@
 <div style="text-align: center;">
     <a href="${path}/">Home</a>
     <a href="${path}/memo/list.do">메모장</a>
-    <a href="${path}/upload/uploadAjax">업로드 테스트</a>
+    <a href="${path}/upload/uploadAjax">업로드</a>
+    <a href="${path}/board/list.do">게시판</a>
 </div>
 
 <div style="text-align:right;">

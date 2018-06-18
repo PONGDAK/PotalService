@@ -19,18 +19,18 @@
     <script src="${path}/summernote/summernote.js"></script>
 
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             $("#memo").summernote({
-                height : 300,
-                width : 800
+                height: 300,
+                width: 800
             });
-            $("#btnUpdate").click(function(){
-                document.form1.action="${path}/memo/update/${dto.id}";
+            $("#btnUpdate").click(function () {
+                document.form1.action = "${path}/memo/update/${dto.id}";
                 document.form1.submit();
             });
-            $("#btnDelete").click(function(){
-                if(confirm("삭제하시겠습니까?")){
-                    document.form1.action="${path}/memo/delete/${dto.id}";
+            $("#btnDelete").click(function () {
+                if (confirm("삭제하시겠습니까?")) {
+                    document.form1.action = "${path}/memo/delete/${dto.id}";
                     document.form1.submit();
                 }
             });
@@ -53,8 +53,7 @@
         <tr>
             <td>메모</td>
             <td><%-- <input name="memo" value="${dto.memo}" size="50"> --%>
-                <textarea rows="5" cols="60"
-                          name="memo" id="memo">${dto.memo}</textarea>
+                <textarea rows="5" cols="60" name="memo" id="memo">${dto.memo}</textarea>
             </td>
         </tr>
         <tr align="center">

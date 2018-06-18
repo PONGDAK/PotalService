@@ -19,11 +19,11 @@
     <script src="${path}/summernote/summernote.js"></script>
 
     <script>
-        $(function() {
+        $(function () {
             //id가 memo인 태그를 summernote로 변경
             $("#memo").summernote({
-                height : 150,
-                width : 600
+                height: 150,
+                width: 600
             });
         });
 
@@ -52,10 +52,8 @@
         <tr>
             <td>${row.id}</td>
             <td>${row.writer}</td>
-            <td><a href="#" onclick="memo_view('${row.id}')">
-                    ${row.memo}</a></td>
-            <td><fmt:formatDate value="${row.post_date}"
-                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td><a href="#" onclick="memo_view('${row.id}')"> ${row.memo}</a></td>
+            <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
         </tr>
     </c:forEach>
 </table>
