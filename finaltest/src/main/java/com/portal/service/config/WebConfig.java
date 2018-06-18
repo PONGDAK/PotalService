@@ -1,33 +1,19 @@
 package com.portal.service.config;
 
-import com.portal.service.interceptor.AdminInterceptor;
-import com.portal.service.interceptor.LoginInterceptor;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebMvc  //anntiaion-driven 이랑 같은 효과
 @ComponentScan(basePackages = "com.portal.service")
-@MapperScan("com.portal.service.model.memo")
 @EnableAspectJAutoProxy //AOP
-@EnableTransactionManagement
 public class WebConfig implements WebMvcConfigurer{
 
     @Override
@@ -66,36 +52,6 @@ public class WebConfig implements WebMvcConfigurer{
         multipartResolver.setMaxInMemorySize(100000000);
         multipartResolver.setMaxUploadSize(200000000);
         return new CommonsMultipartResolver();
-    }
-
-    @Bean
-    public DataSourceTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
-
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/spring?characterEncoding=utf-8");
-        dataSource.setUsername("spring");
-        dataSource.setPassword("1234");
-        return dataSource;
-    }
-
-    @Bean
-    public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-        sqlSessionFactory.setDataSource(dataSource());
-//        sqlSessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-        sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mappers/**/*Mapper.xml"));
-
-        return sqlSessionFactory;
-    }
-
-    @Bean(destroyMethod = "clearCache")
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
     }
 
     @Bean
