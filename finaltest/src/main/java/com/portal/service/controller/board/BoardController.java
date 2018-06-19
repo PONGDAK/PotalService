@@ -32,7 +32,7 @@ public class BoardController {
         List<BoardDTO> list = boardService.listAll(start, Pager.PAGE_SCALE);
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", list);
-        map.put("count", list.size());
+        map.put("count", count);
         map.put("pager", pager);
         System.out.println(pager.getCurrentBlock() + ":" + pager.getNextBlock());
         return new ModelAndView("board/board_list", "map", map);
