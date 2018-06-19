@@ -55,8 +55,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDTO> listAll() throws Exception {
-        return boardDAO.listAll();
+    public List<BoardDTO> listAll(int start, int pageSize) throws Exception {
+        return boardDAO.listAll(start, pageSize);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public int countArticle() throws Exception {
-        return 0;
+        return boardDAO.countArticle();
     }
 }

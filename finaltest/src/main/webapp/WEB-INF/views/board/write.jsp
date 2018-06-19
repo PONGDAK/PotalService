@@ -10,6 +10,24 @@
 <head>
     <title>글쓰기</title>
     <%@include file="../include/header.jsp" %>
+
+    <!-- include libraries(bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js -->
+    <link href="${path}/summernote/summernote.css" rel="stylesheet">
+    <script src="${path}/summernote/summernote.js"></script>
+
+    <script>
+        $(function () {
+            //id가 memo인 태그를 summernote로 변경
+            $("#content").summernote({
+                height: 150,
+                width: 600
+            });
+        });
+    </script>
+
     <script src="${path}/include/js/common.js"></script>
     <script>
         $(function(){

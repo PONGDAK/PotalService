@@ -2,8 +2,10 @@ package com.portal.service.controller.board;
 
 import com.portal.service.model.board.dto.BoardDTO;
 import com.portal.service.service.board.BoardService;
+import com.portal.service.service.board.Pager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -23,12 +25,16 @@ public class BoardController {
     }
 
     @RequestMapping("list.do")
-    public ModelAndView list() throws Exception{
-        List<BoardDTO> list = boardService.listAll();
+    public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception{
+        int count= boardService.countArticle();
+        Pager pager = new Pager(count, currentPage);
+        int start = pager.getBeginPage();
+        List<BoardDTO> list = boardService.listAll(start, Pager.PAGE_SCALE);
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", list);
         map.put("count", list.size());
-        System.out.println(map);
+        map.put("pager", pager);
+        System.out.println(pager.getCurrentBlock() + ":" + pager.getNextBlock());
         return new ModelAndView("board/board_list", "map", map);
     }
 

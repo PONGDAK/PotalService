@@ -5,8 +5,10 @@
 
 <mapper namespace="board">
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
-select b.id,userid,title,name,post_date,view_count from board b, member m
-where b.id_member=m.id order by b.id desc
+SELECT b.id,userid,title,name,post_date,view_count
+FROM board b join member m on b.id_member=m.id
+order by b.id desc
+limit #{start},#{pageSize}
 	</select>
 
     <insert id="insert">
@@ -16,6 +18,10 @@ where b.id_member=m.id order by b.id desc
     <insert id="addAttach">
         insert into attach (fullname, id_board) values (#{fullname}, LAST_INSERT_ID())
     </insert>
+
+    <select id="countArticle" resultType="int">
+        select count(*) from board
+    </select>
 </mapper>
 
 

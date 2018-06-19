@@ -5,7 +5,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -48,8 +50,11 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public List<BoardDTO> listAll() throws Exception {
-        return sqlSession.selectList("board.listAll");
+    public List<BoardDTO> listAll(int start, int pageSize) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("start", start);
+        map.put("pageSize", pageSize);  //2개이상 값전달위해 hashmap 사용
+        return sqlSession.selectList("board.listAll", map);
     }
 
     @Override
@@ -59,6 +64,6 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public int countArticle() throws Exception {
-        return 0;
+        return sqlSession.selectOne("board.countArticle");
     }
 }
