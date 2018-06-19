@@ -25,7 +25,9 @@ public class MemberServiceImpl implements MemberService {
             MemberDTO dto2 = viewMember(dto.getUserid());
             //setAttribute(변수명,값)
             session.setAttribute("userid", dto.getUserid());
+            session.setAttribute("id", dto2.getId());
             session.setAttribute("name", dto2.getName());
+            System.out.println(session.getAttribute("id"));
             System.out.println(session.getAttribute("userid"));
             System.out.println(session.getAttribute("name"));
         }

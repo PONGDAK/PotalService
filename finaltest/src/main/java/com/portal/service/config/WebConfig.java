@@ -1,5 +1,6 @@
 package com.portal.service.config;
 
+import com.portal.service.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +20,11 @@ public class WebConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/login_check.do", "~~").excludePathPatterns("/");
-//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/member/login_check.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/write.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/insert.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/delete.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/update.do");
+
     }
 
     @Override

@@ -5,8 +5,13 @@
 
 <mapper namespace="board">
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
-	select id,writer,title,post_date,view_count from board order by id desc
+select b.id,userid,title,name,post_date,view_count from board b, member m
+where b.id_member=m.id order by b.id desc
 	</select>
+
+    <insert id="insert">
+        insert into board (id_member, title, content) values (#{id_member}, #{title}, #{content})
+    </insert>
 </mapper>
 
 

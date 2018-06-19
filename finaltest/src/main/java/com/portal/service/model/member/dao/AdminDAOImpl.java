@@ -18,7 +18,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public String loginCheck(MemberDTO dto) {
-        return sqlSession.selectOne("admin.login_check", dto);
+        return sqlSession.selectOne("admin.loginCheck", dto);
     }
 
 }

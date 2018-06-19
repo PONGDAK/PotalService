@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,5 +30,19 @@ public class BoardController {
         map.put("count", list.size());
         System.out.println(map);
         return new ModelAndView("board/list", "map", map);
+    }
+
+    @RequestMapping("write.do")
+    public String write(){
+        return "board/write";
+    }
+
+    @RequestMapping("insert.do")
+    public String insert(BoardDTO dto, HttpSession session) throws Exception {
+        System.out.println(session);
+        int id_member = (int) session.getAttribute("id");
+        dto.setId_member(id_member);
+        boardService.create(dto);
+        return "redirect:/board/list.do";
     }
 }

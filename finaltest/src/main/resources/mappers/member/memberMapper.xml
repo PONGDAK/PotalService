@@ -6,7 +6,7 @@
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="member">
 
-    <select id="login_check"
+    <select id="loginCheck"
             parameterType="com.portal.service.model.member.dto.MemberDTO"
             resultType="String">
 		select name from member where userid=#{userid} and passwd=#{passwd}

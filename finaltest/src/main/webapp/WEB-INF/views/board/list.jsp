@@ -10,10 +10,18 @@
 <head>
     <title>게시판</title>
     <%@include file="../include/header.jsp" %>
+    <script>
+        $(function () {
+            $("#btnWrite").click(function () {
+                location.href="${path}/board/write.do";
+            });
+        });
+    </script>
 </head>
 <body>
 <%@include file="../include/menu.jsp" %>
 <h2>게시판</h2>
+<button type="button" id="btnWrite">글쓰기</button>
 ${map.count}개의 게시글이 있습니다.
 <table border="1" width="600px">
     <tr>
@@ -27,7 +35,7 @@ ${map.count}개의 게시글이 있습니다.
         <tr>
             <td>${row.id}</td>
             <td>${row.title}</td>
-            <td>${row.writer}</td>
+            <td>${row.name}</td>
             <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>${row.view_count}</td>
         </tr>

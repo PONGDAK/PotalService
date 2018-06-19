@@ -39,7 +39,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void create(BoardDTO dto) throws Exception {
-
+        sqlSession.insert("board.insert", dto);
     }
 
     @Override

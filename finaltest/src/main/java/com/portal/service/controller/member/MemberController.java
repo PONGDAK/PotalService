@@ -24,12 +24,12 @@ public class MemberController {
         return "member/join";
     }
 
-    @RequestMapping("login.do") //세부적인 url 매핑
+    @RequestMapping("login.do")
     public String login() {
         return "member/login";
     }
 
-    @RequestMapping("login_check.do")
+    @RequestMapping("loginCheck.do")
     public ModelAndView login_check(MemberDTO dto, HttpSession session) {
         boolean result = memberService.loginCheck(dto, session);
         ModelAndView modelAndView = new ModelAndView();

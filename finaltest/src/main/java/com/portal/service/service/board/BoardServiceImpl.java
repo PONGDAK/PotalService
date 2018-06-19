@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void create(BoardDTO dto) throws Exception {
-
+        boardDAO.create(dto);
     }
 
     @Override

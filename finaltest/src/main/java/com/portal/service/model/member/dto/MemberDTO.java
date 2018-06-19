@@ -8,6 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class MemberDTO {
+	private int id;
 	private String userid;
 	private String passwd;
 	private String name;
