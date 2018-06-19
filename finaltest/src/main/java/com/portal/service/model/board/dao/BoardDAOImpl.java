@@ -59,11 +59,16 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void increaseViewCount(int id) throws Exception {
-
+        sqlSession.update("board.increaseViewCount", id);
     }
 
     @Override
     public int countArticle() throws Exception {
         return sqlSession.selectOne("board.countArticle");
+    }
+
+    @Override
+    public BoardDTO read(int id) throws Exception {
+        return sqlSession.selectOne("board.read", id);
     }
 }

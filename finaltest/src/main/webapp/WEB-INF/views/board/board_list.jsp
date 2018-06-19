@@ -42,7 +42,7 @@ ${map.count}개의 게시글이 있습니다.
     <c:forEach var="row" items="${map.list}">
         <tr>
             <td>${row.id}</td>
-            <td>${row.title}</td>
+            <td><a href="${path}/board/view.do?id=${row.id}">${row.title}</a></td>
             <td>${row.name}</td>
             <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>${row.view_count}</td>

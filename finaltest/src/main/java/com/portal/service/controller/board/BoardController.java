@@ -34,8 +34,13 @@ public class BoardController {
         map.put("list", list);
         map.put("count", count);
         map.put("pager", pager);
-        System.out.println(pager.getCurrentBlock() + ":" + pager.getNextBlock());
         return new ModelAndView("board/board_list", "map", map);
+    }
+
+    @RequestMapping("view.do")
+    public ModelAndView view(int id, HttpSession session) throws Exception{
+        boardService.increaseViewCount(id, session);
+        return new ModelAndView("board/view", "dto", boardService.read(id));
     }
 
     @RequestMapping("write.do")

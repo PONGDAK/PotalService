@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -41,7 +42,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDTO read(int id) throws Exception {
-        return null;
+        return boardDAO.read(id);
     }
 
     @Override
@@ -60,8 +61,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void increaseViewCount(int id) throws Exception {
-
+    public void increaseViewCount(int id, HttpSession session) throws Exception {
+        //조회수 갱신제한 (나중에 쿠키나 세션에 변수 추가해서 하는식으로 하는게 좋을듯함)
+        long update_time=0;
+        if(session.getAttribute("update_time_" + id) != null){
+            update_time = (long) session.getAttribute("update_time_" + id);
+        }
+        long current_time=System.currentTimeMillis();
+        if(current_time - update_time > 24*60*60*1000) { //하루에에 한번 조회수 갱신가능
+            boardDAO.increaseViewCount(id);
+            session.setAttribute("update_time_"+id, current_time);
+        }
     }
 
     @Override

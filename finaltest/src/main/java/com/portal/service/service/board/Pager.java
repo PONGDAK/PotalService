@@ -15,8 +15,6 @@ public class Pager {
     private int nextPage;
     private int totalBlock;
     private int currentBlock;
-    private int previousBlock;
-    private int nextBlock;
     private int beginPage;
     private int endPage;
     private int beginBlock;

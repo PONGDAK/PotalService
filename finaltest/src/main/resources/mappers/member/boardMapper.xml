@@ -7,8 +7,7 @@
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
 SELECT b.id,userid,title,name,post_date,view_count
 FROM board b join member m on b.id_member=m.id
-order by b.id desc
-limit #{start},#{pageSize}
+order by b.id desc limit #{start},#{pageSize}
 	</select>
 
     <insert id="insert">
@@ -21,6 +20,15 @@ limit #{start},#{pageSize}
 
     <select id="countArticle" resultType="int">
         select count(*) from board
+    </select>
+
+    <update id="increaseViewCount">
+        update board set view_count=view_count+1 where id=#{id}
+    </update>
+
+    <select id="read" resultType="com.portal.service.model.board.dto.BoardDTO">
+        select b.id,title,post_date,content,view_count,name,userid
+        from board b join member m on b.id_member=m.id where b.id=#{id}
     </select>
 </mapper>
 
