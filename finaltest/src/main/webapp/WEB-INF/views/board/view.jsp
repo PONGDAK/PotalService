@@ -211,7 +211,7 @@
                         console.log(fileInfo);
                         var html = "<div><a href='" + fileInfo.getLink + "'>"
                             + fileInfo.fileName + "</a>&nbsp;&nbsp;";
-                        <c:if test="${sessionScope.id == dto.id_member}">
+                        <c:if test="${sessionScope.userid == dto.userid}">
                         html += "<a href='#' class='file_del' data-src='"
                             + this + "'>[삭제]</a></div>";
                         </c:if>

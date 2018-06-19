@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void deleteFile(String fullName) {
-
+        boardDAO.deleteFile(fullName);
     }
 
     @Override
@@ -45,9 +45,15 @@ public class BoardServiceImpl implements BoardService {
         return boardDAO.read(id);
     }
 
+    @Transactional
     @Override
     public void update(BoardDTO dto) throws Exception {
-
+        boardDAO.update(dto);
+        String[] files =dto.getFiles();
+        if(files==null) return;
+        for(String name : files){
+            boardDAO.updateAttach(name, dto.getId());
+        }
     }
 
     @Override

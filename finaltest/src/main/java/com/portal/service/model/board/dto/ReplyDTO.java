@@ -1,4 +1,4 @@
-package com.portal.service.model.reply.dto;
+package com.portal.service.model.board.dto;
 
 import lombok.Data;
 

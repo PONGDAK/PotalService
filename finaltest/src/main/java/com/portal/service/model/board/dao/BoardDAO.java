@@ -11,6 +11,7 @@ public interface BoardDAO {
     public List<String> getAttach(int id);
     public void updateAttach(String fullName, int id);
     //게시판
+    public void update(BoardDTO dto) throws Exception;
     public void create(BoardDTO dto) throws Exception;
     public void delete(int id) throws Exception;
     //부가

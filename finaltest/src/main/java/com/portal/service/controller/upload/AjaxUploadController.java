@@ -1,5 +1,6 @@
 package com.portal.service.controller.upload;
 
+import com.portal.service.service.board.BoardService;
 import com.portal.service.util.MediaUtils;
 import com.portal.service.util.UploadFileUtils;
 import org.apache.commons.io.IOUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,13 +25,17 @@ public class AjaxUploadController {
     // 로깅을 위한 변수
     private static final Logger logger = LoggerFactory.getLogger(AjaxUploadController.class);
 
-//	@Inject
-//	BoardService boardService;
+    private final BoardService boardService;
 
     // 업로드 디렉토리 servlet-context.xml에 설정되어 있음
     //String uploadPath = "d:/uplaod"; 랑같음
     @Resource(name = "uploadPath")
-    String uploadPath;
+    private String uploadPath;
+
+    @Inject
+    public AjaxUploadController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     // 파일첨부 페이지로 이동
     @GetMapping(value = "/upload/uploadAjax")
@@ -106,7 +112,7 @@ public class AjaxUploadController {
         //원본 파일 삭제(이미지이면 썸네일 삭제)
         new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
         //레코드 삭제
-//        boardService.deleteFile(fileName);
+        boardService.deleteFile(fileName);
 
         return new ResponseEntity<String>("deleted", HttpStatus.OK);
     }

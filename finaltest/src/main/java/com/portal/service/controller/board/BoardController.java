@@ -65,4 +65,16 @@ public class BoardController {
         boardService.create(dto);
         return "redirect:/board/list.do";
     }
+
+
+    @RequestMapping("update.do")
+    public String update(BoardDTO dto) throws Exception{
+        if(dto !=null){
+            boardService.update(dto);
+        }
+        System.out.println("dto:"+dto);
+        //return "redirect:/board/list.do";
+        // 상세 화면으로 되돌아감
+        return "redirect:/board/view.do?id="+dto.getId();
+    }
 }

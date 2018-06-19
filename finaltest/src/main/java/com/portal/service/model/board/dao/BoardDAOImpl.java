@@ -21,7 +21,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void deleteFile(String fullName) {
-
+        sqlSession.delete("board.deleteFile", fullName);
     }
 
     @Override
@@ -36,7 +36,15 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void updateAttach(String fullName, int id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("fullName", fullName);
+        map.put("id", id);
+        sqlSession.insert("board.updateAttach", map);
+    }
 
+    @Override
+    public void update(BoardDTO dto) throws Exception {
+        sqlSession.update("board.update", dto);
     }
 
     @Override
