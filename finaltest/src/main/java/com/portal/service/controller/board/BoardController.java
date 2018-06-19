@@ -29,7 +29,7 @@ public class BoardController {
         map.put("list", list);
         map.put("count", list.size());
         System.out.println(map);
-        return new ModelAndView("board/list", "map", map);
+        return new ModelAndView("board/board_list", "map", map);
     }
 
     @RequestMapping("write.do")

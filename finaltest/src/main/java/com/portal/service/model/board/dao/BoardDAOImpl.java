@@ -24,7 +24,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void addAttach(String fullname) {
-
+        sqlSession.insert("board.addAttach", fullname);
     }
 
     @Override

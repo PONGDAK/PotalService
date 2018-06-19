@@ -12,6 +12,10 @@ where b.id_member=m.id order by b.id desc
     <insert id="insert">
         insert into board (id_member, title, content) values (#{id_member}, #{title}, #{content})
     </insert>
+    <!--http://theeye.pe.kr/archives/438 참고-->
+    <insert id="addAttach">
+        insert into attach (fullname, id_board) values (#{fullname}, LAST_INSERT_ID())
+    </insert>
 </mapper>
 
 

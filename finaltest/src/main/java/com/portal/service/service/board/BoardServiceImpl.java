@@ -3,6 +3,7 @@ package com.portal.service.service.board;
 import com.portal.service.model.board.dao.BoardDAO;
 import com.portal.service.model.board.dto.BoardDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -27,9 +28,15 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
+    @Transactional  //글쓰기랑 첨부파일추가는 하나의 동작이되야함 (게시물번호 같음)
     @Override
     public void create(BoardDTO dto) throws Exception {
         boardDAO.create(dto);
+        String[] files = dto.getFiles();
+        if(files==null) return;
+        for(String name : files){
+            boardDAO.addAttach(name);
+        }
     }
 
     @Override

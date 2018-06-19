@@ -17,5 +17,5 @@ public class BoardDTO {
     private int view_count;
     private int count;
     private String show;
-    private String[] files[];
+    private String[] files;
 }
