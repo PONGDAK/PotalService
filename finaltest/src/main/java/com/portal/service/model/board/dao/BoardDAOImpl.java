@@ -20,22 +20,22 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public void deleteFile(String fullname) {
+    public void deleteFile(String fullName) {
 
     }
 
     @Override
-    public void addAttach(String fullname) {
-        sqlSession.insert("board.addAttach", fullname);
+    public void addAttach(String fullName) {
+        sqlSession.insert("board.addAttach", fullName);
     }
 
     @Override
     public List<String> getAttach(int id) {
-        return null;
+        return sqlSession.selectList("board.getAttach", id);
     }
 
     @Override
-    public void updateAttach(String fullname, int id) {
+    public void updateAttach(String fullName, int id) {
 
     }
 

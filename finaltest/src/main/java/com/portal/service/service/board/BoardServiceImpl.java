@@ -20,13 +20,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteFile(String fullname) {
+    public void deleteFile(String fullName) {
 
     }
 
     @Override
     public List<String> getAttach(int id) {
-        return null;
+        return boardDAO.getAttach(id);
     }
 
     @Transactional  //글쓰기랑 첨부파일추가는 하나의 동작이되야함 (게시물번호 같음)

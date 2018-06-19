@@ -15,7 +15,7 @@ order by b.id desc limit #{start},#{pageSize}
     </insert>
     <!--http://theeye.pe.kr/archives/438 참고-->
     <insert id="addAttach">
-        insert into attach (fullname, id_board) values (#{fullname}, LAST_INSERT_ID())
+        insert into attach (fullname, id_board) values (#{fullName}, (SELECT max(id) FROM board))
     </insert>
 
     <select id="countArticle" resultType="int">
@@ -29,6 +29,10 @@ order by b.id desc limit #{start},#{pageSize}
     <select id="read" resultType="com.portal.service.model.board.dto.BoardDTO">
         select b.id,title,post_date,content,view_count,name,userid
         from board b join member m on b.id_member=m.id where b.id=#{id}
+    </select>
+
+    <select id="getAttach" resultType="String">
+        select fullname from attach where id_board=#{id} order by post_date desc
     </select>
 </mapper>
 

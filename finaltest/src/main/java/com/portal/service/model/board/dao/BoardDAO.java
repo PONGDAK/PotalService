@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface BoardDAO {
     //첨부파일
-    public void deleteFile(String fullname);
-    public void addAttach(String fullname);
+    public void deleteFile(String fullName);
+    public void addAttach(String fullName);
     public List<String> getAttach(int id);
-    public void updateAttach(String fullname, int id);
+    public void updateAttach(String fullName, int id);
     //게시판
     public void create(BoardDTO dto) throws Exception;
     public void delete(int id) throws Exception;

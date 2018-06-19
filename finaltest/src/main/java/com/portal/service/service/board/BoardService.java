@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoardService {
     //첨부파일
-    public void deleteFile(String fullname);
+    public void deleteFile(String fullName);
     public List<String> getAttach(int id);
     //게시판
     public void create(BoardDTO dto) throws Exception;

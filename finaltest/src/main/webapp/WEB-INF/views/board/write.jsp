@@ -30,32 +30,32 @@
 
     <script src="${path}/include/js/common.js"></script>
     <script>
-        $(function(){
-            $("#btnSave").click(function(){
-                var str="";
+        $(function () {
+            $("#btnSave").click(function () {
+                var str = "";
                 // uploadedList 내부의 .file 태그 각각 반복
-                $("#uploadedList .file").each(function(i){
+                $("#uploadedList .file").each(function (i) {
                     // console.log(i);
                     //hidden 태그 구성
                     str +=
-                        "<input type='hidden' name='files["+i+"]'	value='"
-                        + $(this).val()+"'>";
+                        "<input type='hidden' name='files[" + i + "]'	value='"
+                        + $(this).val() + "'>";
                 });
                 //폼에 hidden 태그들을 붙임
                 $("#form1").append(str);
                 document.form1.submit();
             });
-            $(".fileDrop").on("dragenter dragover",function(e){
+            $(".fileDrop").on("dragenter dragover", function (e) {
                 e.preventDefault();
             });
-            $(".fileDrop").on("drop",function(e){
+            $(".fileDrop").on("drop", function (e) {
                 e.preventDefault();
                 //첫번째 첨부파일
-                var files=e.originalEvent.dataTransfer.files;
-                var file=files[0];
+                var files = e.originalEvent.dataTransfer.files;
+                var file = files[0];
                 //폼 데이터에 첨부파일 추가
-                var formData=new FormData();
-                formData.append("file",file);
+                var formData = new FormData();
+                formData.append("file", file);
                 $.ajax({
                     url: "${path}/upload/uploadAjax",
                     data: formData,
@@ -63,23 +63,24 @@
                     processData: false,
                     contentType: false,
                     type: "post",
-                    success: function(data){
+                    success: function (data) {
                         //console.log(data);
                         //data : 업로드한 파일 정보와 Http 상태 코드
-                        var fileInfo=getFileInfo(data);
+                        var fileInfo = getFileInfo(data);
                         //console.log(fileInfo);
-                        var html="<a href='"+fileInfo.getLink+"'>"+
-                            fileInfo.fileName+"</a><br>";
+                        var html = "<a href='" + fileInfo.getLink + "'>" +
+                            fileInfo.fileName + "</a><br>";
                         html += "<input type='hidden' class='file' value='"
-                            +fileInfo.fullName+"'>";
+                            + fileInfo.fullName + "'>";
                         $("#uploadedList").append(html);
                     }
                 });
             });
         });
+
     </script>
     <style>
-        .fileDrop{
+        .fileDrop {
             width: 600px;
             height: 100px;
             border: 1px dotted gray;

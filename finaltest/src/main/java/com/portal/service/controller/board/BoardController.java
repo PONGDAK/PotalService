@@ -4,8 +4,10 @@ import com.portal.service.model.board.dto.BoardDTO;
 import com.portal.service.service.board.BoardService;
 import com.portal.service.service.board.Pager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -23,6 +25,13 @@ public class BoardController {
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
+
+    @RequestMapping("getAttach/{id}")
+    @ResponseBody
+    public List<String> getAttach(@PathVariable int id){
+        return boardService.getAttach(id);
+    }
+
 
     @RequestMapping("list.do")
     public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception{
