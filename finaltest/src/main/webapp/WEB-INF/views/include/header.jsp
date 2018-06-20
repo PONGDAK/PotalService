@@ -12,4 +12,7 @@
 <c:set var = "path" value ="${pageContext.request.contextPath}" />
 <script src = "${path}/include/jquery-3.3.1.min.js"></script>
 <%--<script src = "http://code.jquery.com/jquery-3.3.1.min.js"></script>--%>
-<link rel="stylesheet" href="${path}/include/style.css?ver=2">
+<link rel="stylesheet" href="${path}/include/style.css">
+<!-- include libraries(bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>

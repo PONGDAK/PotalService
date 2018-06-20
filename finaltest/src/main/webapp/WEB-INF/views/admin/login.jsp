@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Insert title here</title>
+    <title>관리자 로그인</title>
     <%@ include file="../include/header.jsp" %>
     <script>
         $(function () {
@@ -40,38 +40,40 @@
     <div class="content">
         <h2>관리자 로그인</h2>
         <form name="form1" method="post">
-            <table border="1" width="400px">
-                <tr>
-                    <td>아이디</td>
-                    <td><input name="userid" id="userid"></td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td><input type="password" name="passwd" id="passwd"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="button" id="btnLogin" value="로그인">
+            <div class="login-table">
+                <table>
+                    <tr>
+                        <td>아이디</td>
+                        <td><input name="userid" id="userid"></td>
+                    </tr>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="passwd" id="passwd"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" id="btnLogin" value="로그인">
 
-                        <c:if test="${param.message == 'nologin' }">
-                            <div style="color:red;">
-                                로그인 하신 후 사용가능합니다.
-                            </div>
-                        </c:if>
-                        <c:if test="${message == 'error' }">
-                            <div style="color:red;">
-                                아이디 또는 비밀번호가 일치하지 않습니다.
-                            </div>
-                        </c:if>
-                        <c:if test="${message == 'logout' }">
-                            <div style="color:blue;">
-                                로그아웃 처리되었습니다.
-                            </div>
-                        </c:if>
+                            <c:if test="${param.message == 'nologin' }">
+                                <div style="color:red;">
+                                    로그인 하신 후 사용가능합니다.
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'error' }">
+                                <div style="color:red;">
+                                    아이디 또는 비밀번호가 일치하지 않습니다.
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'logout' }">
+                                <div style="color:blue;">
+                                    로그아웃 처리되었습니다.
+                                </div>
+                            </c:if>
 
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </form>
     </div>
 </div>

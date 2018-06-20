@@ -41,7 +41,7 @@
 <%@ include file="../include/menu.jsp" %>
 <div class="container">
     <div class="content">
-        <h2>메모 보기</h2>
+        <h2>방명록 보기</h2>
         <form name="form1" method="post">
             <table border="1" width="500px">
                 <tr>

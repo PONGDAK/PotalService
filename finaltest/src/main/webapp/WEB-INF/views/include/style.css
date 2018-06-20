@@ -10,8 +10,24 @@ body {
 
 div {
 }
+
+table{
+    width: 100%;
+    border: 1px;
+}
+
+form{
+
+}
+
+.login-table{
+    width: 50%;
+    margin: auto;
+}
+
 .content{
     display: inline-block;
+    text-align: center;
     width: 800px;
 }
 
@@ -19,4 +35,18 @@ div {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.left{
+    text-align: left;
+}
+
+.menu-bar{
+    padding-top: 5px;
+    font-size: large;
+    text-align: center;
+}
+
+.menu-bar-right{
+    text-align:right;
 }
