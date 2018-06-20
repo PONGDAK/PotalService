@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class ReplyDTO {
     private int id;
+    private int id_member;
     private int id_board;
     private String replytext;
     private String replyer;

@@ -29,22 +29,19 @@
     <script src="${path}/include/js/common.js"></script>
     <script>
         $(function () {
-
-            listReply2();
-
+            listReply();
             //댓글 쓰기
             $("#btnReply").click(function () {
                 var replytext = $("#replytext").val(); //댓글 내용
-                var id = "${dto.id}"; //게시물 번호
-                var param = {"replytext": replytext, "id": id};
-                //var param="replytext="+replytext+"&id="+id;
+                var id_board = "${dto.id}"; //게시물 번호
+                var param = {"replytext": replytext, "id_board": id_board};
                 $.ajax({
                     type: "post",
                     url: "${path}/reply/insert.do",
                     data: param,
                     success: function () {
                         alert("댓글이 등록되었습니다.");
-                        listReply2(); //댓글 목록 출력
+                        listReply(); //댓글 목록 출력
                     }
                 });
             });
@@ -145,18 +142,6 @@
 
         });
 
-        //댓글 목록 출력 함수
-        function listReply() {
-            $.ajax({
-                type: "get",
-                url: "${path}/reply/list.do?id=${dto.id}",
-                success: function (result) {
-                    //result : responseText 응답텍스트(html)
-                    $("#listReply").html(result);
-                }
-            });
-        }
-
         //타임스탬프값(숫자형)을 문자열 형식으로 변환
         function changeDate(date) {
             date = new Date(parseInt(date));
@@ -171,11 +156,12 @@
             return strDate;
         }
 
-        function listReply2() {
+        function listReply() {
             $.ajax({
                 type: "get",
                 contentType: "application/json",
-                url: "${path}/reply/list_json.do?id=${dto.id}",
+                dataType: "json",
+                url: "${path}/reply/list.do?id=${dto.id}",
                 success: function (result) {
                     console.log(result);
                     var output = "<table>";
@@ -209,8 +195,7 @@
                     $(list).each(function () {
                         var fileInfo = getFileInfo(this);
                         console.log(fileInfo);
-                        var html = "<div><a href='" + fileInfo.getLink + "'>"
-                            + fileInfo.fileName + "</a>&nbsp;&nbsp;";
+                        var html = "<div><a href='" + fileInfo.getLink + "'>" + fileInfo.fileName + "</a>&nbsp;&nbsp;";
                         <c:if test="${sessionScope.userid == dto.userid}">
                         html += "<a href='#' class='file_del' data-src='"
                             + this + "'>[삭제]</a></div>";
@@ -243,15 +228,17 @@
                    value="${dto.title}"
                    placeholder="제목을 입력하세요">
     </div>
-    <div>조회수 : ${dto.view_count}	</div>
+    <div>조회수 : ${dto.view_count}    </div>
     <div style="width:800px;">
         내용 <textarea id="content" name="content"
                      rows="3" cols="80"
                      placeholder="내용을 입력하세요">${dto.content}</textarea>
     </div>
     <div> 첨부파일을 등록하세요
-        <div class="fileDrop"></div>
-        <div id="uploadedList"></div>
+        <div class="fileDrop">
+            <div id="uploadedList"></div>
+        </div>
+
     </div>
     <div style="width:700px; text-align:center;">
         <!-- 수정,삭제에 필요한 글번호를 hidden 태그에 저장 -->

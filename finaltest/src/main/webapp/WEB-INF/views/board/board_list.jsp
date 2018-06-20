@@ -16,8 +16,9 @@
                 location.href = "${path}/board/write.do";
             });
         });
-        function list(page){
-            location.href="${path}/board/list.do?currentPage="+page;
+
+        function list(page) {
+            location.href = "${path}/board/list.do?currentPage=" + page;
         }
 
     </script>
@@ -28,9 +29,6 @@
 <h2>게시판</h2>
 <button type="button" id="btnWrite">글쓰기</button>
 ${map.count}개의 게시글이 있습니다.
-<script>
-    console.log(${map.pager.totalBlock})
-</script>
 <table border="1" width="600px">
     <tr>
         <th>번호</th>
@@ -42,10 +40,13 @@ ${map.count}개의 게시글이 있습니다.
     <c:forEach var="row" items="${map.list}">
         <tr>
             <td>${row.id}</td>
-            <td><a href="${path}/board/view.do?id=${row.id}">${row.title}</a></td>
+            <td><a href="${path}/board/view.do?id=${row.id}">${row.title}</a>
+                <span style="color:red;">(${row.count})</span></td>
             <td>${row.name}</td>
             <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <td>${row.view_count}</td>
+            <c:if test="${row.cnt > 0}">
+                <td>${row.view_count}</td>
+            </c:if>
         </tr>
     </c:forEach>
     <tr>

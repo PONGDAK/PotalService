@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="reply">
-	<select id="insertReply">
-		insert into reply (id_board, replytext, replyer) values (#{id_board}, #{replytext}, #{replyer})
+    <insert id="insertReply">
+		insert into reply (id_board, replytext, id_member) values (#{id_board}, #{replytext}, #{id_member})
+	</insert>
+
+    <select id="listReply" resultType="com.portal.service.model.board.dto.ReplyDTO">
+		select r.id, id_board, post_date, update_date, name, replytext
+		from reply r join member m on r.id_member = m.id where id_board = #{id_board} order by r.id desc
 	</select>
 </mapper>
 

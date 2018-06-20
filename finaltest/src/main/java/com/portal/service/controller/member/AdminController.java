@@ -25,15 +25,17 @@ public class AdminController {
 		return "admin/login"; //views/admin/login.jsp로 이동
 	}
 	
-	@RequestMapping("login_check.do")
+	@RequestMapping("loginCheck.do")
 	public ModelAndView login_check(MemberDTO dto
 			, HttpSession session, ModelAndView modelAndView) {
 		String name=adminService.loginCheck(dto); //로그인 체크
 		if(name != null) { //로그인 성공=>세션변수 저장
 			//관리자용 세션변수
+			session.setAttribute("admin_id", dto.getId());
 			session.setAttribute("admin_userid", dto.getUserid());
 			session.setAttribute("admin_name", name);
 			//일반 사용자용 세션변수
+			session.setAttribute("id", dto.getId());
 			session.setAttribute("userid", dto.getUserid());
 			session.setAttribute("name", name);
 			modelAndView.setViewName("admin/admin"); //admin.jsp로 이동

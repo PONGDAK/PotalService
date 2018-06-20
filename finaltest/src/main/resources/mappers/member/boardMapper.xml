@@ -5,8 +5,9 @@
 
 <mapper namespace="board">
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
-SELECT b.id,userid,title,name,post_date,view_count
-FROM board b join member m on b.id_member=m.id
+select b.id, title, userid, content, b.post_date, view_count,
+(select count(*) from reply r where r.id_board=b.id) count
+from board b, member m where b.id_member = m.id
 order by b.id desc limit #{start},#{pageSize}
 	</select>
 
