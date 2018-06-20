@@ -27,6 +27,7 @@
                 <th>이름</th>
                 <th>이메일</th>
                 <th>가입일자</th>
+                <th>탈퇴예정</th>
             </tr>
             <c:forEach var="row" items="${list}">
                 <tr>
@@ -38,6 +39,7 @@
                     <td>${row.email}</td>
                     <td><fmt:formatDate value="${row.join_date}"
                                         pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    <td>${row.cancel}</td>
                 </tr>
             </c:forEach>
         </table>

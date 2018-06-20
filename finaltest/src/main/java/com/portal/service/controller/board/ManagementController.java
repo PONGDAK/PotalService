@@ -40,36 +40,32 @@ public class ManagementController {
     }
 
     @RequestMapping("view.do")
-    public String view(@RequestParam Integer id, Model model) {
+    public String view(@RequestParam int id, Model model) {
         model.addAttribute("dto", managementService.viewMember(id));
         return "management/view";
     }
 
     @RequestMapping("update.do")
-    public String update(MemberDTO dto, Model model) {
-//        boolean result = managementService.checkPw(dto.getId(), dto.getPasswd());
-//        if (result) {
+    public String update(MemberDTO dto) {
             managementService.updateMember(dto);
             return "redirect:/management/list.do";
-//        } else {
-//            System.out.print(dto);
-//            model.addAttribute("dto", dto);
-//            model.addAttribute("date", managementService.viewMember(dto.getId()).getJoin_date());
-//            model.addAttribute("message", "비밀번호를 확인하세요.");
-//            return "management/view";
-//        }
     }
 
     @RequestMapping("delete.do")
-    public String delete(Integer id, String passwd, Model model) {
-//        boolean result = managementService.checkPw(id, passwd);
-//        if (result) {
+    public String delete(int id) {
             managementService.deleteMember(id);
             return "redirect:/management/list.do";
-//        } else {
-//            model.addAttribute("message", "비빌번호를 확인하세요");
-//            model.addAttribute("dto", managementService.viewMember(id));
-//            return "management/view";
-//        }
+    }
+
+    @RequestMapping("cancel.do")
+    public String cancel(int id) {
+        managementService.cancelMember(id);
+        return "redirect:/management/list.do";
+    }
+
+    @RequestMapping("deletenow.do")
+    public String deleteNow(int id) {
+        managementService.deleteNowMember(id);
+        return "redirect:/management/list.do";
     }
 }

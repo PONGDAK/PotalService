@@ -20,8 +20,20 @@
                 }
             });
             $("#btnDelete").click(function () {
-                if (confirm("삭제하시겠습니까?")) {
+                if (confirm("삭제하시겠습니까? 탈퇴예정으로 변경됩니다.")) {
                     document.form1.action = "${path}/management/delete.do";
+                    document.form1.submit();
+                }
+            });
+            $("#btnCancel").click(function () {
+                if (confirm("탈퇴가 취소되었습니다.")) {
+                    document.form1.action = "${path}/management/cancel.do";
+                    document.form1.submit();
+                }
+            });
+            $("#btnDeleteNow").click(function () {
+                if (confirm("정말 완전 삭제하시겠습니까? 게시물 및 댓글이 전부 삭제됩니다.")) {
+                    document.form1.action = "${path}/management/deletenow.do";
                     document.form1.submit();
                 }
             });
@@ -71,7 +83,13 @@
                 <tr>
                     <td colspan="2" align="center">
                         <input type="button" value="수정" id="btnUpdate">
+                        <c:if test="${dto.cancel=='N'}">
                         <input type="button" value="삭제" id="btnDelete">
+                        </c:if>
+                        <c:if test="${dto.cancel=='Y'}">
+                            <input type="button" value="탈퇴취소" id="btnCancel">
+                            <input type="button" value="지금삭제" id="btnDeleteNow">
+                        </c:if>
                         <div style="color: red;">${message}</div>
                     </td>
                 </tr>

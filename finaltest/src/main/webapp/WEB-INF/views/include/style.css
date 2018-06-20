@@ -54,11 +54,3 @@ form{
 .menu-bar-right{
     text-align:right;
 }
-
- .fileDrop {
-     height: 100px;
-     text-align: left;
-     padding: 10px;
-     border: 1px dotted gray;
-     background-color: gray;
- }

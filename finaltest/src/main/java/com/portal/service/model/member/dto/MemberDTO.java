@@ -13,5 +13,6 @@ public class MemberDTO {
 	private String passwd;
 	private String name;
 	private String email;
+	private String cancel;
 	private Date join_date;
 }

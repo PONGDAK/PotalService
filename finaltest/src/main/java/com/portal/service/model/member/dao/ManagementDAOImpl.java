@@ -44,14 +44,14 @@ public class ManagementDAOImpl implements ManagementDAO{
         sqlSession.update("management.updateMember", dto);
     }
 
-//    @Override
-//    public boolean checkPw(int id, String passwd) {
-//        boolean result =false;
-//        Map<String, String> map  = new HashMap<>();
-//        map.put("id", String.valueOf(id));
-//        map.put("passwd", passwd);
-//        int count=sqlSession.selectOne("management.checkPw", map);
-//        if(count==1) result=true;
-//        return result;
-//    }
+    @Override
+    public void cancelMember(int id) {
+        sqlSession.update("management.cancelMember", id);
+    }
+
+    @Override
+    public void deleteNowMember(int id) {
+        sqlSession.delete("management.deleteNowMember", id);
+    }
+
 }

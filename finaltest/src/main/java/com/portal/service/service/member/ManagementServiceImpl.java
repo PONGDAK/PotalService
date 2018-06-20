@@ -3,6 +3,7 @@ package com.portal.service.service.member;
 import com.portal.service.model.member.dao.ManagementDAO;
 import com.portal.service.model.member.dto.MemberDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -42,8 +43,14 @@ public class ManagementServiceImpl implements ManagementService {
         managementDAO.updateMember(dto);
     }
 
-//    @Override
-//    public boolean checkPw(int id, String passwd) {
-//        return managementDAO.checkPw(id, passwd);
-//    }
+    @Override
+    public void cancelMember(int id) {
+        managementDAO.cancelMember(id);
+    }
+
+    @Transactional
+    @Override
+    public void deleteNowMember(int id) {
+        managementDAO.deleteNowMember(id);
+    }
 }

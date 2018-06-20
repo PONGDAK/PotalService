@@ -33,7 +33,14 @@
     </select>
 
     <delete id="deleteMember">
-        delete from member
-        WHERE id=#{id}
+        update member set cancel='Y' where id=#{id}
+    </delete>
+
+    <update id="cancelMember">
+        UPDATE member set cancel='N' where id=#{id}
+    </update>
+
+    <delete id="deleteNowMember">
+        delete from member where id=#{id}
     </delete>
 </mapper>

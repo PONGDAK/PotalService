@@ -10,5 +10,7 @@ public interface ManagementDAO {
     public MemberDTO viewMember(int id);
     public void deleteMember(int id);
     public void updateMember(MemberDTO dto);
+    public void cancelMember(int id);
+    public void deleteNowMember(int id);
 //    public boolean checkPw(int id, String passwd);
 }
