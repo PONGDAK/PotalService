@@ -46,7 +46,7 @@ public class MemberController {
     }
 
     @RequestMapping("signin.do")
-    public String signin(){
+    public String signin() {
         return "member/write";
     }
 
@@ -57,9 +57,21 @@ public class MemberController {
     }
 
     @RequestMapping("update.do")
-    public String update(MemberDTO dto) {
-        memberService.updateMember(dto);
-        return "redirect:/member/view.do";
+    public String update(MemberDTO dto, HttpSession session, Model model) {
+        dto.setId((Integer) session.getAttribute("id"));
+        dto.setUserid((String) session.getAttribute("userid"));
+        boolean result = memberService.checkPw(dto.getId(), dto.getPasswd());
+        if (result) {
+            memberService.updateMember(dto);
+            memberService.loginCheck(dto, session);
+            return "redirect:/";
+        } else {
+            System.out.print(dto);
+            model.addAttribute("dto", dto);
+            model.addAttribute("join_date", memberService.viewMember(dto.getUserid()).getJoin_date());
+            model.addAttribute("message", "비밀번호를 확인하세요.");
+            return "member/view";
+        }
     }
 
     @RequestMapping("delete.do")
