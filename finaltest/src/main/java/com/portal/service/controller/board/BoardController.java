@@ -34,15 +34,19 @@ public class BoardController {
 
 
     @RequestMapping("list.do")
-    public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception{
-        int count= boardService.countArticle();
+    public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage,
+                             @RequestParam(defaultValue = "") String search_option,
+                             @RequestParam(defaultValue = "") String keyword) throws Exception{
+        int count= boardService.countArticle(search_option, keyword);
         Pager pager = new Pager(count, currentPage);
         int start = pager.getBeginPage();
-        List<BoardDTO> list = boardService.listAll(start, Pager.PAGE_SCALE);
+        List<BoardDTO> list = boardService.listAll(search_option, keyword, start, Pager.PAGE_SCALE);
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", list);
         map.put("count", count);
         map.put("pager", pager);
+        map.put("search_option", search_option);
+        map.put("keyword", keyword);
         return new ModelAndView("board/board_list", "map", map);
     }
 

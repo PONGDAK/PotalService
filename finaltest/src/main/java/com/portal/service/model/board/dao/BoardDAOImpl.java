@@ -58,8 +58,10 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public List<BoardDTO> listAll(int start, int pageSize) throws Exception {
+    public List<BoardDTO> listAll(String search_option, String keyword, int start, int pageSize) throws Exception {
         Map<String, Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", "%"+ keyword + "%");
         map.put("start", start);
         map.put("pageSize", pageSize);  //2개이상 값전달위해 hashmap 사용
         return sqlSession.selectList("board.listAll", map);
@@ -71,8 +73,11 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    public int countArticle() throws Exception {
-        return sqlSession.selectOne("board.countArticle");
+    public int countArticle(String search_option, String keyword) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", "%"+ keyword + "%");
+        return sqlSession.selectOne("board.countArticle", map);
     }
 
     @Override

@@ -27,6 +27,27 @@
 <body>
 <%@include file="../include/menu.jsp" %>
 <h2>게시판</h2>
+<!-- 검색폼 -->
+<form name="form1" method="post"
+      action="${path}/board/list.do">
+    <select name="search_option">
+        <option value="name" <c:if test="${map.search_option == 'name'}">selected</c:if>>
+            이름
+        </option>
+        <option value="title" <c:if test="${map.search_option == 'title'}">selected</c:if>>
+            제목
+        </option>
+        <option value="content" <c:if test="${map.search_option == 'content'}">selected</c:if>>
+            내용
+        </option>
+        <option value="all" <c:if test="${map.search_option == 'all'}">selected</c:if>>
+            이름+내용+제목
+        </option>
+    </select>
+    <input name="keyword" value="${map.keyword}">
+    <input type="submit" value="조회">
+</form>
+
 <button type="button" id="btnWrite">글쓰기</button>
 ${map.count}개의 게시글이 있습니다.
 <table border="1" width="600px">

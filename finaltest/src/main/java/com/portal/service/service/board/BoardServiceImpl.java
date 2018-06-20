@@ -63,8 +63,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDTO> listAll(int start, int pageSize) throws Exception {
-        return boardDAO.listAll(start, pageSize);
+    public List<BoardDTO> listAll(String search_option, String keyword, int start, int pageSize) throws Exception {
+        return boardDAO.listAll(search_option, keyword, start, pageSize);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int countArticle() throws Exception {
-        return boardDAO.countArticle();
+    public int countArticle(String search_option, String keyword) throws Exception {
+        return boardDAO.countArticle(search_option, keyword);
     }
 }

@@ -5,10 +5,11 @@
 
 <mapper namespace="board">
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
-select b.id, title, userid, name, content, b.post_date, view_count,b.show,
-(select count(*) from reply r where r.id_board=b.id) count
-from board b, member m where b.id_member = m.id and b.show='Y'
-order by b.id desc limit #{start},#{pageSize}
+        select b.id, title, userid, name, content, b.post_date, view_count,b.show,
+        (select count(*) from reply r where r.id_board=b.id) count
+        from board b, member m
+        <include refid="search"/>
+        order by b.id desc limit #{start},#{pageSize}
 	</select>
 
     <insert id="insert">
@@ -20,8 +21,22 @@ order by b.id desc limit #{start},#{pageSize}
     </insert>
 
     <select id="countArticle" resultType="int">
-        select count(*) from board
+        select count(*) from board b, member m
+        <include refid="search"/>
     </select>
+
+    <sql id="search">
+        <choose>
+            <when test="search_option == 'all'">
+                where b.id_member = m.id and b.show='Y'
+                and #{search_option} content like #{keyword}
+            </when>
+            <otherwise>
+                where b.id_member = m.id and b.show='Y'
+                and (name like #{keyword} or title like #{keyword} or content like #{keyword})
+            </otherwise>
+        </choose>
+    </sql>
 
     <update id="increaseViewCount">
         update board set view_count=view_count+1 where id=#{id}

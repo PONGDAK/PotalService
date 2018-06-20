@@ -15,8 +15,8 @@ public interface BoardDAO {
     public void create(BoardDTO dto) throws Exception;
     public void delete(int id) throws Exception;
     //부가
-    public List<BoardDTO> listAll(int start, int pageSize) throws Exception;
+    public List<BoardDTO> listAll(String search_option, String keyword, int start, int pageSize) throws Exception;
     public void increaseViewCount(int id) throws Exception;
-    public int countArticle() throws Exception;
+    public int countArticle(String search_option, String keyword) throws Exception;
     public BoardDTO read(int id) throws Exception;
 }
