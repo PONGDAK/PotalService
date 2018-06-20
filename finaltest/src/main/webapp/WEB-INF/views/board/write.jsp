@@ -100,8 +100,8 @@
                 내용<textarea id="content" name="content" rows="3" cols="80" placeholder="내용을 입력하세요"></textarea>
             </div>
             <div>첨부파일
-                <div class="fileDrop"></div>
-                <div id="uploadedList"></div>
+                <div class="fileDrop"> <div id="uploadedList"></div></div>
+
             </div>
             <div style="width:700px; text-align:center;">
                 <button type="button" id="btnSave">확인</button>
