@@ -70,7 +70,21 @@
                             <span style="color:red;">(${row.count})</span>
                         </c:if></td>
                     <td>${row.name}</td>
-                    <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    <jsp:useBean id="currentTime" class="java.util.Date"/>
+                    <fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss" var="fisrt"/>
+                    <fmt:parseDate value="${fisrt}" pattern="yyyy-MM-dd HH:mm:ss" var="postTime"/>
+                    <fmt:parseNumber value="${postTime.time/(1000*60)}" integerOnly="false" var="post"/>
+                    <fmt:parseNumber value="${currentTime.time/(1000*60)}" integerOnly="false" var="now"/>
+                    <td><c:if test="${(now-post)<3}">방금전</c:if>
+                        <c:if test="${(now-post)<60&&(now-post)>=3}">
+                            <fmt:parseNumber value="${now-post}" integerOnly="true"/>분전
+                        </c:if>
+                        <c:if test="${(now-post)<1440 && (now-post)>=60}">
+                            <fmt:formatDate value="${row.post_date}" pattern="HH:mm"/>
+                        </c:if>
+                        <c:if test="${(now-post)>=1440}">
+                            <fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </c:if></td>
 
                     <td>${row.view_count}</td>
                 </tr>
