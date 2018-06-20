@@ -29,7 +29,7 @@
         <choose>
             <when test="search_option != 'all'">
                 where b.id_member = m.id and b.show='Y'
-                and #{search_option} like #{keyword}
+                and ${search_option} like #{keyword}
             </when>
             <otherwise>
                 where b.id_member = m.id and b.show='Y'
