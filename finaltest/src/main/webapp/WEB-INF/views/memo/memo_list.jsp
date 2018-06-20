@@ -34,28 +34,32 @@
 </head>
 <body>
 <%@include file="../include/menu.jsp" %>
-<h2>메모장</h2>
-<form method="post" action="${path}/memo/insert.do">
-    이름 : <input name="writer" size="10"><br>
-    메모 : <!-- <input id="memo" name="memo" size="40"> -->
-    <textarea rows="3" cols="50" name="memo" id="memo"></textarea>
-    <input type="submit" value="확인">
-</form>
-<table border="1" width="500px">
-    <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>메모</th>
-        <th>날짜</th>
-    </tr>
-    <c:forEach var="row" items="${list}">
-        <tr>
-            <td>${row.id}</td>
-            <td>${row.writer}</td>
-            <td><a href="#" onclick="memo_view('${row.id}')"> ${row.memo}</a></td>
-            <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-        </tr>
-    </c:forEach>
-</table>
+<div class="container">
+    <div class="content">
+        <h2>메모장</h2>
+        <form method="post" action="${path}/memo/insert.do">
+            이름 : <input name="writer" size="10"><br>
+            메모 : <!-- <input id="memo" name="memo" size="40"> -->
+            <textarea rows="3" cols="50" name="memo" id="memo"></textarea>
+            <input type="submit" value="확인">
+        </form>
+        <table border="1" width="500px">
+            <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>메모</th>
+                <th>날짜</th>
+            </tr>
+            <c:forEach var="row" items="${list}">
+                <tr>
+                    <td>${row.id}</td>
+                    <td>${row.writer}</td>
+                    <td><a href="#" onclick="memo_view('${row.id}')"> ${row.memo}</a></td>
+                    <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>
 </body>
 </html>

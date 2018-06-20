@@ -221,49 +221,52 @@
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<h2>게시물 보기</h2>
-<form id="form1" name="form1" method="post"
-      action="${path}/board/insert.do">
-    <div>제목 <input name="title" id="title" size="80"
-                   value="${dto.title}"
-                   placeholder="제목을 입력하세요">
-    </div>
-    <div>조회수 : ${dto.view_count}    </div>
-    <div style="width:800px;">
-        내용 <textarea id="content" name="content"
-                     rows="3" cols="80"
-                     placeholder="내용을 입력하세요">${dto.content}</textarea>
-    </div>
-    <div> 첨부파일을 등록하세요
-        <div class="fileDrop">
-            <div id="uploadedList"></div>
-        </div>
+<div class="container">
+    <div class="content">
+        <h2>게시물 보기</h2>
+        <form id="form1" name="form1" method="post"
+              action="${path}/board/insert.do">
+            <div>제목 <input name="title" id="title" size="80"
+                           value="${dto.title}"
+                           placeholder="제목을 입력하세요">
+            </div>
+            <div>조회수 : ${dto.view_count}    </div>
+            <div style="width:800px;">
+                내용 <textarea id="content" name="content"
+                             rows="3" cols="80"
+                             placeholder="내용을 입력하세요">${dto.content}</textarea>
+            </div>
+            <div> 첨부파일을 등록하세요
+                <div class="fileDrop">
+                    <div id="uploadedList"></div>
+                </div>
 
-    </div>
-    <div style="width:700px; text-align:center;">
-        <!-- 수정,삭제에 필요한 글번호를 hidden 태그에 저장 -->
-        <input type="hidden" name="id" value="${dto.id}">
+            </div>
+            <div style="width:700px; text-align:center;">
+                <!-- 수정,삭제에 필요한 글번호를 hidden 태그에 저장 -->
+                <input type="hidden" name="id" value="${dto.id}">
 
-        <!-- 본인만 수정,삭제 버튼 표시 -->
-        <c:if test="${sessionScope.userid == dto.userid}">
-            <button type="button" id="btnUpdate">수정</button>
-            <button type="button" id="btnDelete">삭제</button>
-        </c:if>
+                <!-- 본인만 수정,삭제 버튼 표시 -->
+                <c:if test="${sessionScope.userid == dto.userid}">
+                    <button type="button" id="btnUpdate">수정</button>
+                    <button type="button" id="btnDelete">삭제</button>
+                </c:if>
 
-        <button type="button" id="btnList">목록</button>
-    </div>
-</form>
-<!-- 댓글 작성 -->
-<div style="width:700px; text-align:center;">
-    <c:if test="${sessionScope.userid != null }">
+                <button type="button" id="btnList">목록</button>
+            </div>
+        </form>
+        <!-- 댓글 작성 -->
+        <div style="width:700px; text-align:center;">
+            <c:if test="${sessionScope.userid != null }">
 	 	<textarea rows="5" cols="80" id="replytext"
                   placeholder="댓글을 작성하세요"></textarea>
-        <br>
-        <button type="button" id="btnReply">댓글쓰기</button>
-    </c:if>
+                <br>
+                <button type="button" id="btnReply">댓글쓰기</button>
+            </c:if>
+        </div>
+        <!-- 댓글 목록 -->
+        <div id="listReply"></div>
+    </div>
 </div>
-<!-- 댓글 목록 -->
-<div id="listReply"></div>
-
 </body>
 </html>

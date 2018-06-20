@@ -7,12 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div style="text-align: center;">
-<a href="${path}/admin/loginCheck.do">HOME</a> |
-    <a href="${path}/memo/list.do">방명록</a> |
-<%--<a href="${path}/upload/uploadAjax">업로드 테스트</a> |--%>
-<a href="${path}/management/list.do">회원관리</a>
-</div>
+
+<a href="${path}/">회원관리</a> |
+<a href="${path}/upload/uploadAjax">업로드 테스트</a> |
+<a href="${path}/board/list.do">게시판</a>
 
 <div style="text-align:right;">
     <c:choose>

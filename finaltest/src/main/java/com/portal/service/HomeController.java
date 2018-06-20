@@ -16,15 +16,9 @@ import java.util.Locale;
 @Controller //현재 클래스를 스프링에서 관리하는 컨트롤러로 등록
 public class HomeController {
 
-    private static final Logger logger
-            = LoggerFactory.getLogger(HomeController.class);
-
 	@RequestMapping(value = "/")
-	public ModelAndView home(Locale locale) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(new Date());
-		return new ModelAndView("home","serverTime", formattedDate);
+	public String home() {
+		return "home";
 	}
 }
 

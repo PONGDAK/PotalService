@@ -9,10 +9,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <div style="text-align: center;">
-    <a href="${path}/">Home</a>
-    <a href="${path}/memo/list.do">메모장</a>
-    <a href="${path}/upload/uploadAjax">업로드</a>
-    <a href="${path}/board/list.do">게시판</a>
+    <a href="${path}/">Home</a> |
+    <a href="${path}/memo/list.do">방명록</a> |
+    <a href="${path}/upload/uploadAjax">업로드</a> |
+    <a href="${path}/board/list.do">게시판</a> |
 </div>
 
 <div style="text-align:right;">
