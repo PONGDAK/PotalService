@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/management/list.do");
-        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/management/write.do");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/management/view.do");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("management/write.do");
 
@@ -29,6 +28,9 @@ public class WebConfig implements WebMvcConfigurer{
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/insert.do");
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/delete.do");
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/update.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/member/write.do");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/member/view.do");
+
 
     }
 

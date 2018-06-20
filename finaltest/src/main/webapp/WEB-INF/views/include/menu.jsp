@@ -13,7 +13,7 @@
     <a href="${path}/memo/list.do">방명록</a> |
     <a href="${path}/board/list.do">게시판</a> |
     <c:if test="${sessionScope.userid != null }">
-        <a href="${path}/upload/uploadAjax">정보수정</a> |
+        <a href="${path}/member/view.do">정보수정</a> |
     </c:if>
 </div>
 

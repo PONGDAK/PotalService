@@ -6,4 +6,8 @@ public interface MemberDAO {
 	public boolean loginCheck(MemberDTO dto);
 	public MemberDTO viewMember(String userid);
     public void insertMember(MemberDTO dto);
+	public void deleteMember(int id);
+	public void updateMember(MemberDTO dto);
+	public void cancelMember(int id);
+	public boolean checkPw(int id, String passwd);
 }

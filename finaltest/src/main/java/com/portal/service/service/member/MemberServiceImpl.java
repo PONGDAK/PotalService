@@ -50,6 +50,25 @@ public class MemberServiceImpl implements MemberService {
         memberDao.insertMember(dto);
     }
 
+    @Override
+    public void deleteMember(int id) {
+        memberDao.deleteMember(id);
+    }
+
+    @Override
+    public void updateMember(MemberDTO dto) {
+        memberDao.updateMember(dto);
+    }
+
+    @Override
+    public void cancelMember(int id) {
+        memberDao.cancelMember(id);
+    }
+
+    @Override
+    public boolean checkPw(int id, String passwd) {
+        return memberDao.checkPw(id, passwd);
+    }
 }
 
 

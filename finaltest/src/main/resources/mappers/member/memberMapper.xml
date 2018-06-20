@@ -20,6 +20,25 @@
 	<insert id="insertMember">
 		insert into member (userid, passwd, name, email) VALUES (#{userid}, #{passwd}, #{name}, #{email})
 	</insert>
+
+	<update id ="updateMember">
+		update member
+		set passwd=#{passwd}, name=#{name}, email=#{email}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deleteMember">
+		update member set cancel='Y' where id=#{id}
+	</delete>
+
+	<update id="cancelMember">
+		UPDATE member set cancel='N' where id=#{id}
+	</update>
+
+	<select id="checkPw" resultType="int">
+		select count(*) from member
+		WHERE id =#{id} and passwd=#{passwd}
+	</select>
 </mapper>
 
 

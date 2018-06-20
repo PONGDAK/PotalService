@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="menu-bar" style="text-align: center;">
-<a href="${path}/admin/loginCheck.do">HOME</a> |
+<a href="${path}/admin/home.do">HOME</a> |
 <a href="${path}/management/list.do">회원관리</a>
 </div>
 

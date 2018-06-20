@@ -15,25 +15,19 @@
         $(function () {
             $("#btnUpdate").click(function () {
                 if (confirm("수정하시겠습니까?")) {
-                    document.form1.action = "${path}/management/update.do";
+                    document.form1.action = "${path}/member/update.do";
                     document.form1.submit();
                 }
             });
             $("#btnDelete").click(function () {
-                if (confirm("삭제하시겠습니까? 탈퇴예정으로 변경됩니다.")) {
-                    document.form1.action = "${path}/management/delete.do";
+                if (confirm("탈퇴하시겠습니까? 관리자 승인시 탈퇴됩니다.")) {
+                    document.form1.action = "${path}/member/delete.do";
                     document.form1.submit();
                 }
             });
             $("#btnCancel").click(function () {
                 if (confirm("탈퇴가 취소되었습니다.")) {
-                    document.form1.action = "${path}/management/cancel.do";
-                    document.form1.submit();
-                }
-            });
-            $("#btnDeleteNow").click(function () {
-                if (confirm("정말 완전 삭제하시겠습니까? 게시물 및 댓글이 전부 삭제됩니다.")) {
-                    document.form1.action = "${path}/management/deletenow.do";
+                    document.form1.action = "${path}/member/cancel.do";
                     document.form1.submit();
                 }
             });
@@ -41,7 +35,7 @@
     </script>
 </head>
 <body>
-<%@ include file="../include/admin_menu.jsp" %>
+<%@ include file="../include/menu.jsp" %>
 <div class="container">
     <div class="content">
         <h2>회원정보 수정</h2>
@@ -49,11 +43,11 @@
             <table border="1" width="400px">
                 <tr>
                     <td>회원코드</td>
-                    <td><input name="id" value="${dto.id}" readonly></td>
+                    <td>${dto.id}</td>
                 </tr>
                 <tr>
                     <td>아이디</td>
-                    <td><input name="userid" value="${dto.userid}"></td>
+                    <td>${dto.userid}</td>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
@@ -84,11 +78,10 @@
                     <td colspan="2" align="center">
                         <input type="button" value="수정" id="btnUpdate">
                         <c:if test="${dto.cancel=='N'}">
-                        <input type="button" value="삭제" id="btnDelete">
+                            <input type="button" value="삭제" id="btnDelete">
                         </c:if>
                         <c:if test="${dto.cancel=='Y'}">
                             <input type="button" value="탈퇴취소" id="btnCancel">
-                            <input type="button" value="지금삭제" id="btnDeleteNow">
                         </c:if>
                         <div style="color: red;">${message}</div>
                     </td>

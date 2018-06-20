@@ -3,7 +3,9 @@ package com.portal.service.controller.member;
 import com.portal.service.model.member.dto.MemberDTO;
 import com.portal.service.service.member.MemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
@@ -52,6 +54,30 @@ public class MemberController {
     public ModelAndView insert(MemberDTO dto) {
         memberService.insertMember(dto);
         return new ModelAndView("member/login", "text", "정상적으로 가입되었습니다.");
+    }
+
+    @RequestMapping("update.do")
+    public String update(MemberDTO dto) {
+        memberService.updateMember(dto);
+        return "redirect:/member/view.do";
+    }
+
+    @RequestMapping("delete.do")
+    public String delete(int id) {
+        memberService.deleteMember(id);
+        return "redirect:/member/view.do";
+    }
+
+    @RequestMapping("cancel.do")
+    public String cancel(int id) {
+        memberService.cancelMember(id);
+        return "redirect:/member/view.do";
+    }
+
+    @RequestMapping("view.do")
+    public String view(HttpSession httpSession, Model model) {
+        model.addAttribute("dto", memberService.viewMember((String) httpSession.getAttribute("userid")));
+        return "member/view";
     }
 
 }

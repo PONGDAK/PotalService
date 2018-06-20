@@ -48,24 +48,26 @@ public class ManagementController {
     @RequestMapping("update.do")
     public String update(MemberDTO dto) {
             managementService.updateMember(dto);
-            return "redirect:/management/list.do";
+            return "redirect:/";
     }
 
     @RequestMapping("delete.do")
     public String delete(int id) {
             managementService.deleteMember(id);
-            return "redirect:/management/list.do";
+            return "redirect:/";
     }
 
     @RequestMapping("cancel.do")
     public String cancel(int id) {
         managementService.cancelMember(id);
-        return "redirect:/management/list.do";
+        return "redirect:/";
     }
 
     @RequestMapping("deletenow.do")
     public String deleteNow(int id) {
         managementService.deleteNowMember(id);
-        return "redirect:/management/list.do";
+        return "redirect:/";
     }
+
+
 }
