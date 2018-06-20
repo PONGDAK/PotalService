@@ -27,9 +27,9 @@
 
     <sql id="search">
         <choose>
-            <when test="search_option == 'all'">
+            <when test="search_option != 'all'">
                 where b.id_member = m.id and b.show='Y'
-                and #{search_option} content like #{keyword}
+                and #{search_option} like #{keyword}
             </when>
             <otherwise>
                 where b.id_member = m.id and b.show='Y'
