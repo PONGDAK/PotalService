@@ -15,7 +15,6 @@
 <body>
 <%@ include file="../include/admin_menu.jsp" %>
 <div class="container">
-    <
     <div class="content">
         <h2>
             ${sessionScope.admin_name}

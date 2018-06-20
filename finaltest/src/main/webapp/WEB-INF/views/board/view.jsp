@@ -20,7 +20,7 @@
     <script>
         $(function () {
             $("#content").summernote({
-                height: 500,
+                height: 300,
                 width: 800
             });
         });
@@ -164,7 +164,7 @@
                 url: "${path}/reply/list.do?id=${dto.id}",
                 success: function (result) {
                     console.log(result);
-                    var output = "<table>";
+                    var output = "<table style='border: 1px'>";
                     for (var i in result) {
                         var repl = result[i].replytext;
                         repl = repl.replace(/  /gi, "&nbsp;&nbsp;");//공백처리
@@ -209,15 +209,6 @@
 
     </script>
 
-    <style>
-        .fileDrop {
-            width: 600px;
-            height: 100px;
-            border: 1px dotted gray;
-            background-color: gray;
-        }
-    </style>
-
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
@@ -236,13 +227,13 @@
                              rows="3" cols="80"
                              placeholder="내용을 입력하세요">${dto.content}</textarea>
             </div>
-            <div> 첨부파일을 등록하세요
+            <div> 첨부파일을 드래그하세요
                 <div class="fileDrop">
                     <div id="uploadedList"></div>
                 </div>
 
             </div>
-            <div style="width:700px; text-align:center;">
+            <div class="btn-div">
                 <!-- 수정,삭제에 필요한 글번호를 hidden 태그에 저장 -->
                 <input type="hidden" name="id" value="${dto.id}">
 
@@ -256,7 +247,7 @@
             </div>
         </form>
         <!-- 댓글 작성 -->
-        <div style="width:700px; text-align:center;">
+        <div class="btn-div">
             <c:if test="${sessionScope.userid != null }">
 	 	<textarea rows="5" cols="80" id="replytext"
                   placeholder="댓글을 작성하세요"></textarea>
@@ -265,7 +256,9 @@
             </c:if>
         </div>
         <!-- 댓글 목록 -->
-        <div id="listReply"></div>
+        <div id="listReply">
+            <hr>
+        </div>
     </div>
 </div>
 </body>

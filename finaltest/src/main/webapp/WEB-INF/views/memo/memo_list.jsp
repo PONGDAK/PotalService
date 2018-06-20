@@ -38,7 +38,9 @@
                 이름 : <input name="writer" size="10"><br>
                 메모 : <!-- <input id="memo" name="memo" size="40"> -->
                 <textarea rows="3" cols="50" name="memo" id="memo"></textarea>
+                <div class="btn-div">
                 <input type="submit" value="확인">
+                </div>
             </form>
         </div>
         <table border="1">

@@ -11,8 +11,10 @@
 <div class="menu-bar">
     <a href="${path}/">Home</a> |
     <a href="${path}/memo/list.do">방명록</a> |
-    <a href="${path}/upload/uploadAjax">업로드</a> |
     <a href="${path}/board/list.do">게시판</a> |
+    <c:if test="${sessionScope.userid != null }">
+        <a href="${path}/upload/uploadAjax">정보수정</a> |
+    </c:if>
 </div>
 
 <div class="menu-bar-right">
