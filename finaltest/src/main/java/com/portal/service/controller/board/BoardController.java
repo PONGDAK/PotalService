@@ -77,4 +77,10 @@ public class BoardController {
         // 상세 화면으로 되돌아감
         return "redirect:/board/view.do?id="+dto.getId();
     }
+
+    @RequestMapping("delete.do")
+    public String delete(int id) throws Exception {
+        boardService.delete(id); //삭제 처리
+        return "redirect:/board/list.do"; //목록으로 이동
+    }
 }

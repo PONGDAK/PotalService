@@ -5,9 +5,9 @@
 
 <mapper namespace="board">
     <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
-select b.id, title, userid, content, b.post_date, view_count,
+select b.id, title, userid, name, content, b.post_date, view_count,b.show,
 (select count(*) from reply r where r.id_board=b.id) count
-from board b, member m where b.id_member = m.id
+from board b, member m where b.id_member = m.id and b.show='Y'
 order by b.id desc limit #{start},#{pageSize}
 	</select>
 
@@ -47,6 +47,10 @@ order by b.id desc limit #{start},#{pageSize}
     <insert id="updateAttach">
         insert into attach (fullname, id_board) values (#{fullName}, #{id})
     </insert>
+
+    <update id="delete">
+        update board b set b.show='N' where id=#{id}
+    </update>
 </mapper>
 
 

@@ -56,9 +56,10 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    @Transactional
     @Override
     public void delete(int id) throws Exception {
-
+        boardDAO.delete(id);
     }
 
     @Override

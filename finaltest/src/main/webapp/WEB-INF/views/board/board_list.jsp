@@ -41,12 +41,13 @@ ${map.count}개의 게시글이 있습니다.
         <tr>
             <td>${row.id}</td>
             <td><a href="${path}/board/view.do?id=${row.id}">${row.title}</a>
-                <span style="color:red;">(${row.count})</span></td>
+                <c:if test="${row.count > 0}">
+                    <span style="color:red;">(${row.count})</span>
+                </c:if></td>
             <td>${row.name}</td>
             <td><fmt:formatDate value="${row.post_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-            <c:if test="${row.cnt > 0}">
-                <td>${row.view_count}</td>
-            </c:if>
+
+            <td>${row.view_count}</td>
         </tr>
     </c:forEach>
     <tr>

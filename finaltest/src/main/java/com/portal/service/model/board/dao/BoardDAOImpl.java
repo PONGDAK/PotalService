@@ -54,7 +54,7 @@ public class BoardDAOImpl implements BoardDAO {
 
     @Override
     public void delete(int id) throws Exception {
-
+        sqlSession.delete("board.delete", id);
     }
 
     @Override
