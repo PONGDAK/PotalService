@@ -17,6 +17,9 @@
 		select * from member where userid=#{userid}
 	</select>
 
+	<insert id="insertMember">
+		insert into member (userid, passwd, name, email) VALUES (#{userid}, #{passwd}, #{name}, #{email})
+	</insert>
 </mapper>
 
 

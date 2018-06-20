@@ -8,4 +8,5 @@ public interface MemberService {
     public boolean loginCheck(MemberDTO dto, HttpSession session);
     public void logout(HttpSession session);
     public MemberDTO viewMember(String userid);
+    public void insertMember(MemberDTO dto);
 }

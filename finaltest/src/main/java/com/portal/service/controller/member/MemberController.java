@@ -19,11 +19,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @RequestMapping("address.do")
-    public String address() {
-        return "member/join";
-    }
-
     @RequestMapping("login.do")
     public String login() {
         return "member/login";
@@ -46,6 +41,17 @@ public class MemberController {
     public ModelAndView logout(HttpSession session) {
         memberService.logout(session); //세션 초기화
         return new ModelAndView("member/login", "message", "logout");
+    }
+
+    @RequestMapping("signin.do")
+    public String signin(){
+        return "member/write";
+    }
+
+    @RequestMapping("insert.do")
+    public ModelAndView insert(MemberDTO dto) {
+        memberService.insertMember(dto);
+        return new ModelAndView("member/login", "text", "정상적으로 가입되었습니다.");
     }
 
 }

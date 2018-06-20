@@ -63,7 +63,10 @@
                                     로그아웃 처리되었습니다.
                                 </div>
                             </c:if>
-
+                            <h3>${text}</h3>
+                            <div>
+                                <a href="${path}/member/signin.do">아이디가 없으신가요? 지금 가입하세요.</a>
+                            </div>
                         </td>
                     </tr>
                 </table>
