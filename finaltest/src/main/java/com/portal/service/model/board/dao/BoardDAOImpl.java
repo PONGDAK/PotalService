@@ -60,6 +60,7 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public List<BoardDTO> listAll(String search_option, String keyword, int start, int pageSize) throws Exception {
         Map<String, Object> map = new HashMap<>();
+        System.out.println(search_option +"  " + keyword);
         map.put("search_option", search_option);
         map.put("keyword", "%"+ keyword + "%");
         map.put("start", start);

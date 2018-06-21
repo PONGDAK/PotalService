@@ -15,7 +15,6 @@
     <insert id="insert">
         insert into board (id_member, title, content) values (#{id_member}, #{title}, #{content})
     </insert>
-    <!--http://theeye.pe.kr/archives/438 참고-->
     <insert id="addAttach">
         insert into attach (fullname, id_board) values (#{fullName}, (SELECT max(id) FROM board))
     </insert>
@@ -27,12 +26,12 @@
 
     <sql id="search">
         <choose>
-            <when test="search_option != 'all'">
-                where b.id_member = m.id and b.show='Y'
+            <when test='search_option!="all"'>
+                where b.id_member=m.id and b.show='Y'
                 and #{search_option} like #{keyword}
             </when>
             <otherwise>
-                where b.id_member = m.id and b.show='Y'
+                where b.id_member=m.id and b.show='Y'
                 and (name like #{keyword} or title like #{keyword} or content like #{keyword})
             </otherwise>
         </choose>
