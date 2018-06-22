@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-    <select id="listAll" resultType="com.portal.service.model.board.dto.BoardDTO">
+    <select id="listAll" parameterType="HashMap" resultType="com.portal.service.model.board.dto.BoardDTO">
         select b.id, title, userid, name, content, b.post_date, view_count,b.show,
         (select count(*) from reply r where r.id_board=b.id) count
         from board b, member m
@@ -28,7 +28,7 @@
         <choose>
             <when test='search_option!="all"'>
                 where b.id_member=m.id and b.show='Y'
-                and #{search_option} like #{keyword}
+                and ${search_option} like #{keyword}
             </when>
             <otherwise>
                 where b.id_member=m.id and b.show='Y'

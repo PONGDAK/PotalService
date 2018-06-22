@@ -35,7 +35,7 @@ public class BoardController {
 
     @RequestMapping("list.do")
     public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage,
-                             @RequestParam(defaultValue = "") String search_option,
+                             @RequestParam(defaultValue = "name") String search_option,
                              @RequestParam(defaultValue = "") String keyword) throws Exception{
         int count= boardService.countArticle(search_option, keyword);
         Pager pager = new Pager(count, currentPage);
